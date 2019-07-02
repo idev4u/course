@@ -3,8 +3,9 @@ import Vapor
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
     // "It works" page
-    router.get { req in
-        return try req.view().render("welcome")
+    router.get { req -> Future<View> in
+        let message = "Welcome to Course"
+        return try req.view().render("welcome", ["message": message])
     }
     
     // Says hello
