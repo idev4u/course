@@ -1,40 +1,27 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    #for(teammates in team.team) {
-    <div class="col-md-6 col-xl-4">
-      <a class="d-flex flex-wrap justify-content-start">
-          <div class="card d-flex flex-column align-items-start" style="width: 8rem;">
-              <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
-                  <div class="card-body">
-                      <h5 class="card-title">#(teammates.name)
-                      </h5>
-                  </div>
-        </div>
-      </a>
-    </div>
-    }
-    #for(teammates in teamout.team) {
-    <div class="col-md-6 col-xl-4">
-        <a class="d-flex flex-wrap justify-content-start">
-            <div class="card d-flex flex-column align-items-start" style="width: 8rem;">
-                <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">#(teammates.name)
-                        </h5>
-                    </div>
+    <div class="col-12 col-md-6 col-xl-4">
+            #for(track in tracks) {
+            <div class="d-flex p-2">
+                
+                <div class="card d-flex flex-column align-items-start" style="width: 8rem;">
+                    <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">#(track.Owner.name)
+                            </h5>
+                        </div>
+                </div>
+                <div class="card d-flex flex-column align-items-start" style="width: 8rem;">
+                    <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">#(track.NewMate.name)
+                            </h5>
+                        </div>
+                </div>
+                
             </div>
-        </a>
-    </div>
-    }
-    <div class="col-md-6 col-xl-4">
-      <a class="d-flex flex-wrap justify-content-start">
-        <div class="label w-100 text-right">Track 1</div>
-      </a>
-    </div>
-    <div class="col-md-6 col-xl-4">
-      <a class="d-flex flex-wrap justify-content-start  ">
-        <div class="label w-100 text-right">Track 2</div>
-      </a>
-    </div>
+            <div class="label w-100 text-center">#(track.TrackName)</div>
+            }
+        </div>
   </div>
 </div>
