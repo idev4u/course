@@ -5,7 +5,7 @@ public func routes(_ router: Router) throws {
     // "It works" page
     router.get { req -> Future<View> in
         let message = "Welcome to Course"
-        return try req.view().render("welcome", ["message": message])
+        return try req.view().render("main", ["message": message])
     }
     
     // Says hello

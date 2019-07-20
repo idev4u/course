@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<style>
+html, body {
+height: 100%;
+margin: 0;
+}
+</style>
+    <head>
+        <title>Course</title>
+    </head>
+    <body>
+        #embed("common/headline")
+        #embed("sections/team")
+        #embed("sections/pairs")
+        #embed("sections/parkinglot")
+    </body>
+    
+</html>
