@@ -1,15 +1,27 @@
 <div>
     <h3>teams</h3>
-    <ul>
-        #for(teammates in team.team) {
-        <li>#(teammates.name)</li>
-        }
-    </ul>
-    <h3>out</h3>
-    <ul>
-        #for(teammates in teamout.team) {
-        <li>#(teammates.name)</li>
-        }
-    </ul>
-
+    <div class="row">
+        <div class="col">
+            <ul>
+                #for(teammates in team.team) {
+                <li>#(teammates.name)</li>
+                }
+            </ul>
+        </div>
+        <div class="col">
+            <ul>
+                #for(teammates in teamout.team) {
+                <li>#(teammates.name)</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p>unasingend</p>
+        </div>
+        <div class="col">
+            <p>out</p>
+        </div>
+    </div>
 </div>
