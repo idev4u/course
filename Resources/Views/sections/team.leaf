@@ -2,26 +2,52 @@
     <h3>teams</h3>
     <div class="row">
         <div class="col">
-            <ul>
+            <div class="row">
                 #for(teammates in team.team) {
-                <li>#(teammates.name)</li>
+                <div class="col">
+                    #(teammates.name)
+                    <div class="card" style="width: 8rem;">
+                        <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">#(teammates.name)
+                                </h5>
+                       </div>
+                    </div>
+                </div>
                 }
-            </ul>
+            </div>
         </div>
         <div class="col">
-            <ul>
+            <div class="row">
                 #for(teammates in teamout.team) {
-                <li>#(teammates.name)</li>
+                <div class="col">
+                    #(teammates.name)
+                    <div class="card" style="width: 8rem;">
+                        <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">#(teammates.name)
+                                </h5>
+                            </div>
+                    </div>
+                </div>
                 }
-            </ul>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <p>unasingend</p>
+            <div class="row">
+                <div class="col">
+                    <p>unasingend</p>
+                </div>
+            </div>
         </div>
         <div class="col">
-            <p>out</p>
+            <div class="row">
+                <div class="col">
+                    <p>out</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
