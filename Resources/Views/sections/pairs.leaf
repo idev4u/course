@@ -1,3 +1,40 @@
-<div>
-	<h3>pairs!</h3>
+<div class="container-fluid">
+  <div class="row">
+    #for(teammates in team.team) {
+    <div class="col-md-6 col-xl-4">
+      <a class="d-flex flex-wrap justify-content-start">
+          <div class="card d-flex flex-column align-items-start" style="width: 8rem;">
+              <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                  <div class="card-body">
+                      <h5 class="card-title">#(teammates.name)
+                      </h5>
+                  </div>
+        </div>
+      </a>
+    </div>
+    }
+    #for(teammates in teamout.team) {
+    <div class="col-md-6 col-xl-4">
+        <a class="d-flex flex-wrap justify-content-start">
+            <div class="card d-flex flex-column align-items-start" style="width: 8rem;">
+                <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">#(teammates.name)
+                        </h5>
+                    </div>
+            </div>
+        </a>
+    </div>
+    }
+    <div class="col-md-6 col-xl-4">
+      <a class="d-flex flex-wrap justify-content-start">
+        <div class="label w-100 text-right">Track 1</div>
+      </a>
+    </div>
+    <div class="col-md-6 col-xl-4">
+      <a class="d-flex flex-wrap justify-content-start  ">
+        <div class="label w-100 text-right">Track 2</div>
+      </a>
+    </div>
+  </div>
 </div>

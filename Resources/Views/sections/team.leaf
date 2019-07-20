@@ -1,34 +1,36 @@
-<div class="container-fluid">
-    <h3>team</h3>
-    <div class="d-flex">
+<div class="container">
+    <div class="row">
         
-        #for(teammates in team.team) {
-        <div class="p-2 bg-primary flex-column  ">
-            <div class="card" style="width: 8rem;">
-                <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">#(teammates.name)
-                        </h5>
-                    </div>
-            </div>
-        </div>
-        }
-        #for(teammates in teamout.team) {
-        <div class="p-2 bg-info">
-            <div class="card" style="width: 8rem;">
-                <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">#(teammates.name)
-                        </h5>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="d-flex p-2">
+                #for(teammates in team.team) {
+                <div class="card d-flex flex-column align-items-start" style="width: 8rem;">
+                    <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">#(teammates.name)
+                            </h5>
+                        </div>
                 </div>
+                }
             </div>
+            <div class="label w-100 text-center">unasinged</div>
         </div>
         
-        }
-    </div>
-        <div class="d-flex">
-            <div class="p-2 bg-primary flex-column">unasigned</div>
-            <div class="p-2 bg-info">out</div>
+        <div class="col-12 col-md-6 col-xl-4">
+            
+            <div class="d-flex p-2">
+                #for(teammates in teamout.team) {
+                <div class="card d-flex flex-column align-items-start" style="width: 8rem;">
+                    <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">#(teammates.name)
+                            </h5>
+                        </div>
+                </div>
+                }
+            </div>
+             <div class="label w-100 text-center">out</div>
+            
         </div>
-
+    </div>
 </div>
