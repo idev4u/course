@@ -1,8 +1,8 @@
 <div>
     <h3>teams</h3>
     <ul>
-        #for(teammates in team) {
-        <li>#(teammates)</li>
+        #for(teammates in team.team) {
+        <li>#(teammates.name)</li>
         }
     </ul>
 </div>
