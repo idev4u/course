@@ -1,11 +1,10 @@
-<div>
-    <h3>teams</h3>
-    <div class="row">
-        <div class="col">
+<div class="container-fluid">
+    <h3>team</h3>
+    <div class="row justify-content-around">
+        <div class="col-sm-auto">
             <div class="row">
                 #for(teammates in team.team) {
                 <div class="col">
-                    #(teammates.name)
                     <div class="card" style="width: 8rem;">
                         <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
                             <div class="card-body">
@@ -17,11 +16,10 @@
                 }
             </div>
         </div>
-        <div class="col">
+        <div class="col-sm-auto">
             <div class="row">
                 #for(teammates in teamout.team) {
                 <div class="col">
-                    #(teammates.name)
                     <div class="card" style="width: 8rem;">
                         <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
                             <div class="card-body">
@@ -34,15 +32,15 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
+    <div class="row justify-content-around">
+        <div class="col-sm-auto">
             <div class="row">
                 <div class="col">
                     <p>unasingend</p>
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col-sm-auto">
             <div class="row">
                 <div class="col">
                     <p>out</p>
