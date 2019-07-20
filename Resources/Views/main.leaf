@@ -7,6 +7,7 @@ margin: 0;
 }
 </style>
     <head>
+        #embed("common/header/stylesheet-bootstrap")
         <title>Course</title>
     </head>
     <body>
@@ -14,6 +15,7 @@ margin: 0;
         #embed("sections/team")
         #embed("sections/pairs")
         #embed("sections/parkinglot")
+        #embed("common/scripts/layout-scripts")
     </body>
     
 </html>
