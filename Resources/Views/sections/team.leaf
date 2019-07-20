@@ -1,51 +1,34 @@
 <div class="container-fluid">
     <h3>team</h3>
-    <div class="row justify-content-around">
-        <div class="col-sm-auto">
-            <div class="row">
-                #for(teammates in team.team) {
-                <div class="col">
-                    <div class="card" style="width: 8rem;">
-                        <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">#(teammates.name)
-                                </h5>
-                       </div>
+    <div class="d-flex">
+        
+        #for(teammates in team.team) {
+        <div class="p-2 bg-primary flex-column  ">
+            <div class="card" style="width: 8rem;">
+                <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">#(teammates.name)
+                        </h5>
                     </div>
-                </div>
-                }
             </div>
         </div>
-        <div class="col-sm-auto">
-            <div class="row">
-                #for(teammates in teamout.team) {
-                <div class="col">
-                    <div class="card" style="width: 8rem;">
-                        <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">#(teammates.name)
-                                </h5>
-                            </div>
-                    </div>
+        }
+        #for(teammates in teamout.team) {
+        <div class="p-2 bg-info">
+            <div class="card" style="width: 8rem;">
+                <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">#(teammates.name)
+                        </h5>
                 </div>
-                }
             </div>
         </div>
+        
+        }
     </div>
-    <div class="row justify-content-around">
-        <div class="col-sm-auto">
-            <div class="row">
-                <div class="col">
-                    <p>unasingend</p>
-                </div>
-            </div>
+        <div class="d-flex">
+            <div class="p-2 bg-primary flex-column">unasigned</div>
+            <div class="p-2 bg-info">out</div>
         </div>
-        <div class="col-sm-auto">
-            <div class="row">
-                <div class="col">
-                    <p>out</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
