@@ -3,6 +3,8 @@ import Vapor
 struct Board: Encodable {
     let message: String
     let team: Team
+    let teamout: Team
+    
 }
 
 /// Register your application's routes here.
@@ -15,8 +17,10 @@ public func routes(_ router: Router) throws {
         let teamate1 = TeamMate(name: "Horst", isOut: true)
         let teamate2 = TeamMate(name: "Klaus", isOut: false)
         let teamate3 = TeamMate(name: "Gerd", isOut: false)
-        let team: Team = Team(team: [teamate1,teamate2,teamate3])
-        let board = Board(message: message, team: team)
+        
+        let team: Team = Team(team: [teamate1])
+        let out: Team = Team(team: [teamate2,teamate3])
+        let board = Board(message: message, team: team, teamout: out)
         return try req.view().render("main", board )
     }
     

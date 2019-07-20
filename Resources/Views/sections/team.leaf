@@ -5,4 +5,11 @@
         <li>#(teammates.name)</li>
         }
     </ul>
+    <h3>out</h3>
+    <ul>
+        #for(teammates in teamout.team) {
+        <li>#(teammates.name)</li>
+        }
+    </ul>
+
 </div>
