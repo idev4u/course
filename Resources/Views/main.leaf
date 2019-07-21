@@ -11,12 +11,9 @@ margin: 0;
         <title>Course</title>
     </head>
     <body>
-        #embed("common/headline")
-        <div><h2>Team</h2></div>
+        #embed("common/headline")   
         #embed("sections/team")
-        <div><h2>Pairs</h2></div>
         #embed("sections/pairs")
-        <div><h2>Parkinglot</h2></div>
         #embed("sections/parkinglot")
         #embed("common/scripts/layout-scripts")
     </body>
