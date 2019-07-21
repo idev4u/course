@@ -21,12 +21,12 @@
             </div>
                 <!-- dropdown -->
                 <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Teammates
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     #for(teammates in team.team) {
-                      <a class="update owner" href="/track/owner/update/#(teammates.name)">#(teammates.name)</a>
+                      <a class="update owner" href="/#(track.TrackName)/update/owner/#(teammates.name)">#(teammates.name)</a>
                     }
                   </div>
                   

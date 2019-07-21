@@ -16,21 +16,22 @@ public func routes(_ router: Router) throws {
     // Init Data
     
     // Team
-    let teamate1 = TeamMate(name: "Horst", isOut: true)
-    let teamate2 = TeamMate(name: "Klaus", isOut: false)
-    let teamate3 = TeamMate(name: "Gerd", isOut: false)
-    let teamate4 = TeamMate(name: "Bernd", isOut: false)
-    let teamate5 = TeamMate(name: "Paul", isOut: false)
-    let teamate6 = TeamMate(name: "Heinrich", isOut: false)
-    let teamate7 = TeamMate(name: "Richard", isOut: false)
-    let teamate8 = TeamMate(name: "Ludwig", isOut: false)
+    let teamate1 = TeamMate(name: "Horst", isOut: true, assingedTrackId: nil)
+    let teamate2 = TeamMate(name: "Klaus", isOut: false, assingedTrackId: nil)
+    let teamate3 = TeamMate(name: "Gerd", isOut: false, assingedTrackId: nil)
+    let teamate4 = TeamMate(name: "Bernd", isOut: false , assingedTrackId: 1)
+    let teamate5 = TeamMate(name: "Paul", isOut: false, assingedTrackId: 1)
+    let teamate6 = TeamMate(name: "Heinrich", isOut: false, assingedTrackId: 2)
+    let teamate7 = TeamMate(name: "Richard", isOut: false, assingedTrackId: 2)
+    let teamate8 = TeamMate(name: "Ludwig", isOut: false, assingedTrackId: nil)
     
+    var allTeamMates: Team = Team(team: [teamate1,teamate2,teamate3,teamate4,teamate5,teamate6,teamate7,teamate8])
     let team: Team = Team(team: [teamate1, teamate4, teamate8])
     let out: Team = Team(team: [teamate2,teamate3])
     
     // Tracks
-    var track1 = Track(Owner: teamate4, NewMate: teamate5, TrackName: "Azure")
-    var track2 = Track(Owner: teamate6, NewMate: teamate7, TrackName: "AWS")
+    var track1 = Track(TrackId: 1, Owner: teamate4, NewMate: teamate5, TrackName: "Azure")
+    var track2 = Track(TrackId: 2, Owner: teamate6, NewMate: teamate7, TrackName: "AWS")
     
     var tracks = [track1, track2]
     
@@ -41,19 +42,30 @@ public func routes(_ router: Router) throws {
     }
     
     // has to changed to put
-    router.get("track", "owner", "update", String.parameter) { req -> Future<Response> in
-        track1.Owner = teamate8
-        
+    // "/<trackname>/update/owner/<ownername>
+    router.get(String.parameter, "update", "owner", String.parameter) { req -> Future<Response> in
+        //TrackIdentifier
+        let trackname = try req.parameters.next(String.self)
+        print("Log: trackname \(trackname)")
         print("Log: tracks \(tracks.debugDescription)")
         //array.filter {$0.eventID == id}.first?.added = value
-        let idx:Int = tracks.firstIndex(where: { $0.TrackName == "Azure"})!
+        let idx:Int = tracks.firstIndex(where: { $0.TrackName == trackname})!
+        
+        // Load track from tracks array
         print("index of azure \(idx)")
+        var tmpTrack = tracks[idx]
+        //update Owner
+        let NewOwner = try req.parameters.next(String.self)
+        let indxOfTeamMate = allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
+        tmpTrack.Owner = allTeamMates.team[indxOfTeamMate!]
+        
+        // Update new written track item
         tracks.remove(at: idx)
-        tracks.insert(track1, at: idx)
+        tracks.insert(tmpTrack, at: idx)
         
         print("Log: after update tracks \(tracks.debugDescription)")
         
-        print("Log: \(try req.parameters.next(String.self))")
+        // Return to main view
         return req.future().map() {
             return req.redirect(to: "/")
         }

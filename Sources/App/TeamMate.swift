@@ -10,4 +10,5 @@ import Foundation
 struct TeamMate: Encodable {
     let name: String
     var isOut: Bool
+    var assingedTrackId: Int?
 }
