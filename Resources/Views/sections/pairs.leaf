@@ -9,7 +9,7 @@
                         <div class="card-body">
                             <h5 class="card-title">#(track.ContextOwner.name)
                             </h5>
-                        </div>
+                        </div>      
                 </div>
                 <div class="card d-flex flex-column align-items-start" style="width: 8rem;">
                     <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
@@ -29,7 +29,6 @@
                       <a class="update owner" href="/#(track.TrackName)/update/owner/#(teammates.name)">#(teammates.name)</a>
                     }
                   </div>
-                </div>
                 </div>
                 <!-- dropdown rotatein-->
                 <div class="dropdown">
