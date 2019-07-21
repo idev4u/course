@@ -26,9 +26,10 @@
                   </button>
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     #for(teammates in team.team) {
-                      <a class="dropdown-item" href="/track/owner/update/#(teammates.name)">#(teammates.name)</a>
+                      <a class="update owner" href="/track/owner/update/#(teammates.name)">#(teammates.name)</a>
                     }
                   </div>
+                  
                 </div>
             <div class="label w-100 text-center">#(track.TrackName)</div>
             }
