@@ -30,8 +30,8 @@ public func routes(_ router: Router) throws {
     let out: Team = Team(team: [teamate2,teamate3])
     
     // Tracks
-    var track1 = Track(TrackId: 1, Owner: teamate4, NewMate: teamate5, TrackName: "Azure")
-    var track2 = Track(TrackId: 2, Owner: teamate6, NewMate: teamate7, TrackName: "AWS")
+    var track1 = Track(TrackId: 1, ContextOwner: teamate4, RotateInPerson: teamate5, TrackName: "Azure")
+    var track2 = Track(TrackId: 2, ContextOwner: teamate6, RotateInPerson: teamate7, TrackName: "AWS")
     
     var tracks = [track1, track2]
     
@@ -57,7 +57,36 @@ public func routes(_ router: Router) throws {
         //update Owner
         let NewOwner = try req.parameters.next(String.self)
         let indxOfTeamMate = allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
-        tmpTrack.Owner = allTeamMates.team[indxOfTeamMate!]
+        tmpTrack.ContextOwner = allTeamMates.team[indxOfTeamMate!]
+        
+        // Update new written track item
+        tracks.remove(at: idx)
+        tracks.insert(tmpTrack, at: idx)
+        
+        print("Log: after update tracks \(tracks.debugDescription)")
+        
+        // Return to main view
+        return req.future().map() {
+            return req.redirect(to: "/")
+        }
+    }
+    
+    // "/<trackname>/update/newmate/<ownername>
+    router.get(String.parameter, "update", "rotatein", String.parameter) { req -> Future<Response> in
+        //TrackIdentifier
+        let trackname = try req.parameters.next(String.self)
+        print("Log: trackname \(trackname)")
+        print("Log: tracks \(tracks.debugDescription)")
+        //array.filter {$0.eventID == id}.first?.added = value
+        let idx:Int = tracks.firstIndex(where: { $0.TrackName == trackname})!
+        
+        // Load track from tracks array
+        print("index of azure \(idx)")
+        var tmpTrack = tracks[idx]
+        //update Owner
+        let RotatIn = try req.parameters.next(String.self)
+        let indxOfTeamMate = allTeamMates.team.firstIndex(where: {$0.name == RotatIn})
+        tmpTrack.RotateInPerson = allTeamMates.team[indxOfTeamMate!]
         
         // Update new written track item
         tracks.remove(at: idx)

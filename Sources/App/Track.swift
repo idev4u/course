@@ -9,7 +9,7 @@ import Foundation
 
 struct Track:Encodable {
     let TrackId: Int
-    var Owner:TeamMate
-    var NewMate:TeamMate
+    var ContextOwner:TeamMate
+    var RotateInPerson:TeamMate
     var TrackName: String
 }
