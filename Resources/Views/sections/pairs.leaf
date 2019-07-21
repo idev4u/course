@@ -1,11 +1,11 @@
 <div class="container">
 <div><h2>Pairs</h2></div>
   <div class="row">
+  #for(track in tracks) {
     <div class="col-12 col-md-6 col-xl-4">
-            #for(track in tracks) {
             <div class="d-flex p-2">
                 
-                <div class="card d-flex flex-column align-items-start" style="width: 12rem;">
+                <div class="card d-flex flex-column align-items-start" style="width: 9rem;">
                     <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">#(track.ContextOwner.name)
@@ -24,7 +24,7 @@
                             <!-- dropdown owner -->
                         </div>
                 </div>
-                <div class="card d-flex flex-column align-items-start" style="width: 12rem;">
+                <div class="card d-flex flex-column align-items-start" style="width: 9rem;">
                     <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">#(track.RotateInPerson.name)
@@ -43,34 +43,9 @@
                             <!-- dropdown rotatein-->
                         </div>
                 </div>
-            </div>
-                <!-- dropdown owner
-                <div class="dropdown">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Owner
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    #for(teammates in team.team) {
-                      <a class="update owner" href="/#(track.TrackName)/update/owner/#(teammates.name)">#(teammates.name)</a>
-                    }
-                  </div>
-                </div>
-                -->
-                <!-- dropdown rotatein
-                <div class="dropdown">
-                  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Rotate in Person
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    #for(teammates in team.team) {
-                      <a class="update owner" href="/#(track.TrackName)/update/rotatein/#(teammates.name)">#(teammates.name)</a>
-                    }
-                  </div>
-                  
-                </div>-->
-                
+            </div>              
             <div class="label w-100 text-center">#(track.TrackName)</div>
-            }
         </div>
+            }
   </div>
 </div>

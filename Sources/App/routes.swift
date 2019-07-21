@@ -23,7 +23,7 @@ public func routes(_ router: Router) throws {
     let teamate5 = TeamMate(name: "Paul", isOut: false, assingedTrackId: 1)
     let teamate6 = TeamMate(name: "Heinrich", isOut: false, assingedTrackId: 2)
     let teamate7 = TeamMate(name: "Richard", isOut: false, assingedTrackId: 2)
-    let teamate8 = TeamMate(name: "Ludwig", isOut: false, assingedTrackId: nil)
+    let teamate8 = TeamMate(name: "Ludwig", isOut: false, assingedTrackId: 3)
     
     var allTeamMates: Team = Team(team: [teamate1,teamate2,teamate3,teamate4,teamate5,teamate6,teamate7,teamate8])
     let team: Team = Team(team: [teamate1, teamate4, teamate8])
@@ -32,8 +32,9 @@ public func routes(_ router: Router) throws {
     // Tracks
     var track1 = Track(TrackId: 1, ContextOwner: teamate4, RotateInPerson: teamate5, TrackName: "Azure")
     var track2 = Track(TrackId: 2, ContextOwner: teamate6, RotateInPerson: teamate7, TrackName: "AWS")
+    var track3 = Track(TrackId: 3, ContextOwner: teamate8, RotateInPerson: teamate3, TrackName: "Mongo")
     
-    var tracks = [track1, track2]
+    var tracks = [track1, track2, track3]
     
     router.get { req -> Future<View> in
 
