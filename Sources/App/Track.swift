@@ -8,7 +8,7 @@
 import Foundation
 
 struct Track:Encodable {
-    let Owner:TeamMate
-    let NewMate:TeamMate
-    let TrackName: String
+    var Owner:TeamMate
+    var NewMate:TeamMate
+    var TrackName: String
 }

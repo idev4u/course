@@ -18,8 +18,18 @@
                             </h5>
                         </div>
                 </div>
-                
             </div>
+                <!-- dropdown -->
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Teammates
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    #for(teammates in team.team) {
+                      <a class="dropdown-item" href="/track/owner/update/#(teammates.name)">#(teammates.name)</a>
+                    }
+                  </div>
+                </div>
             <div class="label w-100 text-center">#(track.TrackName)</div>
             }
         </div>
