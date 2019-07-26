@@ -8,5 +8,5 @@
 import Foundation
 
 struct Team: Encodable {
-   let team: [TeamMate]
+    var team: [TeamMate]
 }

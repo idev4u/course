@@ -27,7 +27,7 @@ public func routes(_ router: Router) throws {
     
     var allTeamMates: Team = Team(team: [teamate1,teamate2,teamate3,teamate4,teamate5,teamate6,teamate7,teamate8])
     let team: Team = Team(team: [teamate1, teamate4, teamate8])
-    let out: Team = Team(team: [teamate2,teamate3])
+    var out: Team = Team(team: [teamate2,teamate3])
     
     // Tracks
     var track1 = Track(TrackId: 1, ContextOwner: teamate4, RotateInPerson: teamate5, TrackName: "Azure")
@@ -99,6 +99,19 @@ public func routes(_ router: Router) throws {
         return req.future().map() {
             return req.redirect(to: "/")
         }
+    }
+    
+    router.get("team", "mate", String.parameter, "out") { req -> Future<Response> in
+        let teammateName = try req.parameters.next(String.self)
+        let indxOfTeamMate = allTeamMates.team.firstIndex(where: {$0.name == teammateName})
+        
+        let teammate = allTeamMates.team[indxOfTeamMate!]
+        print("log: \(teammate)")
+        out.team.append(teammate)
+        return req.future().map() {
+            return req.redirect(to: "/")
+        }
+        
     }
     
 }

@@ -16,7 +16,7 @@
             </div>
             <div class="label w-100 text-center">unasinged</div>
         </div>
-        
+        <!-- out -->
         <div class="col-12 col-md-6 col-xl-4">
             
             <div class="d-flex p-2">
@@ -30,6 +30,17 @@
                 </div>
                 }
             </div>
+            <!-- dropdown rotatein -->
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">out
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    #for(teammates in team.team) {
+                    <a class="update owner" href="/team/mate/#(teammates.name)/out ">#(teammates.name)</a>
+                    }
+                    </div>
+                </div>
+            <!-- dropdown rotatein -->
             <div class="label w-100 text-center">out</div>
         </div>
     </div>
