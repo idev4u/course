@@ -20,65 +20,66 @@ public func routes(_ router: Router) throws {
         let board = Board(message: message, team: datasource.team, teamout: datasource.out, tracks: tracks)
         return try req.view().render("main", board )
     }
-    
+    // tracks
     // has to changed to put
-    // "/<trackname>/update/owner/<ownername>
-    router.get(String.parameter, "update", "owner", String.parameter) { req -> Future<Response> in
-        //TrackIdentifier
-        let trackname = try req.parameters.next(String.self)
-        print("Log: trackname \(trackname)")
-        print("Log: tracks \(tracks.debugDescription)")
-        //array.filter {$0.eventID == id}.first?.added = value
-        let idx:Int = tracks.firstIndex(where: { $0.TrackName == trackname})!
+    // "/tracks/<trackname>/update/owner/<ownername>
+    router.group("tracks", String.parameter, "update" ) { group in
+        group.get( "owner", String.parameter) { req -> Future<Response> in
+                //TrackIdentifier
+                let trackname = try req.parameters.next(String.self)
+                print("Log: trackname \(trackname)")
+                print("Log: tracks \(tracks.debugDescription)")
+                //array.filter {$0.eventID == id}.first?.added = value
+                let idx:Int = tracks.firstIndex(where: { $0.TrackName == trackname})!
         
-        // Load track from tracks array
-        print("index of azure \(idx)")
-        var tmpTrack = tracks[idx]
-        //update Owner
-        let NewOwner = try req.parameters.next(String.self)
-        let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
-        tmpTrack.ContextOwner = datasource.allTeamMates.team[indxOfTeamMate!]
+                // Load track from tracks array
+                print("index of azure \(idx)")
+                var tmpTrack = tracks[idx]
+                //update Owner
+                let NewOwner = try req.parameters.next(String.self)
+                let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
+                tmpTrack.ContextOwner = datasource.allTeamMates.team[indxOfTeamMate!]
         
-        // Update new written track item
-        tracks.remove(at: idx)
-        tracks.insert(tmpTrack, at: idx)
+                // Update new written track item
+                tracks.remove(at: idx)
+                tracks.insert(tmpTrack, at: idx)
         
-        print("Log: after update tracks \(tracks.debugDescription)")
+                print("Log: after update tracks \(tracks.debugDescription)")
         
-        // Return to main view
-        return req.future().map() {
-            return req.redirect(to: "/")
+                // Return to main view
+                return req.future().map() {
+                    return req.redirect(to: "/")
+                }
+            }
+        group.get("rotatein", String.parameter) { req -> Future<Response> in
+            //TrackIdentifier
+            let trackname = try req.parameters.next(String.self)
+            print("Log: trackname \(trackname)")
+            print("Log: tracks \(tracks.debugDescription)")
+            //array.filter {$0.eventID == id}.first?.added = value
+            let idx:Int = tracks.firstIndex(where: { $0.TrackName == trackname})!
+            
+            // Load track from tracks array
+            print("index of azure \(idx)")
+            var tmpTrack = tracks[idx]
+            //update Owner
+            let RotatIn = try req.parameters.next(String.self)
+            let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == RotatIn})
+            tmpTrack.RotateInPerson = datasource.allTeamMates.team[indxOfTeamMate!]
+            
+            // Update new written track item
+            tracks.remove(at: idx)
+            tracks.insert(tmpTrack, at: idx)
+            
+            print("Log: after update tracks \(tracks.debugDescription)")
+            
+            // Return to main view
+            return req.future().map() {
+                return req.redirect(to: "/")
+            }
         }
     }
-    
-    // "/<trackname>/update/newmate/<ownername>
-    router.get(String.parameter, "update", "rotatein", String.parameter) { req -> Future<Response> in
-        //TrackIdentifier
-        let trackname = try req.parameters.next(String.self)
-        print("Log: trackname \(trackname)")
-        print("Log: tracks \(tracks.debugDescription)")
-        //array.filter {$0.eventID == id}.first?.added = value
-        let idx:Int = tracks.firstIndex(where: { $0.TrackName == trackname})!
-        
-        // Load track from tracks array
-        print("index of azure \(idx)")
-        var tmpTrack = tracks[idx]
-        //update Owner
-        let RotatIn = try req.parameters.next(String.self)
-        let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == RotatIn})
-        tmpTrack.RotateInPerson = datasource.allTeamMates.team[indxOfTeamMate!]
-        
-        // Update new written track item
-        tracks.remove(at: idx)
-        tracks.insert(tmpTrack, at: idx)
-        
-        print("Log: after update tracks \(tracks.debugDescription)")
-        
-        // Return to main view
-        return req.future().map() {
-            return req.redirect(to: "/")
-        }
-    }
+
     
     router.get("team", "mate", String.parameter, "out") { req -> Future<Response> in
         let teammateName = try req.parameters.next(String.self)

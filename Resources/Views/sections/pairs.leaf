@@ -17,7 +17,7 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 #for(teammates in team.team) {
-                                  <a class="update owner" href="/#(track.TrackName)/update/owner/#(teammates.name)">#(teammates.name)</a>
+                                  <a class="update owner" href="/"tracks"/#(track.TrackName)/update/owner/#(teammates.name)">#(teammates.name)</a>
                                 }
                               </div>
                             </div>
@@ -36,7 +36,7 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 #for(teammates in team.team) {
-                                  <a class="update owner" href="/#(track.TrackName)/update/rotatein/#(teammates.name)">#(teammates.name)</a>
+                                  <a class="update owner" href="/tracks/#(track.TrackName)/update/rotatein/#(teammates.name)">#(teammates.name)</a>
                                 }
                               </div>          
                             </div>
