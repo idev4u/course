@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import Vapor
 
-struct TeamMate: Encodable {
+struct TeamMate: Encodable, Content {
     let name: String
-    var isOut: Bool
+    let surename: String
+    let image: Data?
+    var isOut: Bool?
     var assingedTrackId: Int?
 }

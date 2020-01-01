@@ -88,10 +88,29 @@ public func routes(_ router: Router) throws {
         let teammate = datasource.allTeamMates.team[indxOfTeamMate!]
         print("log: \(teammate)")
         datasource.out.team.append(teammate)
+        
         return req.future().map() {
             return req.redirect(to: "/")
         }
-        
     }
     
+
+    router.group("teammates") {group in
+        group.get(){ req -> Future<View> in
+            let content = "hello"
+            return try req.view().render("pages/add_teammates.leaf", content )
+        }
+        group.post("add") { req -> Future<Response> in
+            return try req.content.decode(TeamMate.self).map(to: Response.self) { teammate in
+                print(teammate.name) // "Vapor"
+                print(teammate.surename) // 3
+                print(teammate.image) // Raw image data
+                print(teammate.isOut ?? true)
+                return req.redirect(to: "/teammates")
+            }
+            // FIXME: add error handling for files greater 1Mb
+        
+        }
+    }
+
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<style>
+html, body {
+height: 100%;
+margin: 0;
+}
+</style>
+    <head>
+        #embed("common/header/stylesheet-bootstrap")
+        <title>Add User</title>
+    </head>
+    <body>
+        <p> this is the teammates add section</p>
+        <form method="POST" action="/teammates/add" enctype="multipart/form-data">
+            <input type="text" name="name">
+            <input type="text" name="surename">
+            <input type="file" name="image">
+            <button type="submit" name="action">Save</button>
+        </form>
+        #embed("common/scripts/layout-scripts")
+    </body>
+</html>
