@@ -12,33 +12,21 @@ struct Board: Encodable {
 public func routes(_ router: Router) throws {
     // "It works" page
     let message = "Welcome to Course"
+    var datasource = TeamDataSource()
+    let teammates = TeamMates()
     
     // Init Data
-    
-    // Team
-    let teamate1 = TeamMate(name: "Horst", isOut: true, assingedTrackId: nil)
-    let teamate2 = TeamMate(name: "Klaus", isOut: false, assingedTrackId: nil)
-    let teamate3 = TeamMate(name: "Gerd", isOut: false, assingedTrackId: nil)
-    let teamate4 = TeamMate(name: "Bernd", isOut: false , assingedTrackId: 1)
-    let teamate5 = TeamMate(name: "Paul", isOut: false, assingedTrackId: 1)
-    let teamate6 = TeamMate(name: "Heinrich", isOut: false, assingedTrackId: 2)
-    let teamate7 = TeamMate(name: "Richard", isOut: false, assingedTrackId: 2)
-    let teamate8 = TeamMate(name: "Ludwig", isOut: false, assingedTrackId: 3)
-    
-    var allTeamMates: Team = Team(team: [teamate1,teamate2,teamate3,teamate4,teamate5,teamate6,teamate7,teamate8])
-    let team: Team = Team(team: [teamate1, teamate4, teamate8])
-    var out: Team = Team(team: [teamate2,teamate3])
-    
+        
     // Tracks
-    var track1 = Track(TrackId: 1, ContextOwner: teamate4, RotateInPerson: teamate5, TrackName: "Azure")
-    var track2 = Track(TrackId: 2, ContextOwner: teamate6, RotateInPerson: teamate7, TrackName: "AWS")
-    var track3 = Track(TrackId: 3, ContextOwner: teamate8, RotateInPerson: teamate3, TrackName: "Mongo")
+    var track1 = Track(TrackId: 1, ContextOwner: teammates.teamate4, RotateInPerson: teammates.teamate5, TrackName: "Azure")
+    var track2 = Track(TrackId: 2, ContextOwner: teammates.teamate6, RotateInPerson: teammates.teamate7, TrackName: "AWS")
+    var track3 = Track(TrackId: 3, ContextOwner: teammates.teamate8, RotateInPerson: teammates.teamate3, TrackName: "Mongo")
     
     var tracks = [track1, track2, track3]
     
     router.get { req -> Future<View> in
 
-        let board = Board(message: message, team: team, teamout: out, tracks: tracks)
+        let board = Board(message: message, team: datasource.team, teamout: datasource.out, tracks: tracks)
         return try req.view().render("main", board )
     }
     
@@ -57,8 +45,8 @@ public func routes(_ router: Router) throws {
         var tmpTrack = tracks[idx]
         //update Owner
         let NewOwner = try req.parameters.next(String.self)
-        let indxOfTeamMate = allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
-        tmpTrack.ContextOwner = allTeamMates.team[indxOfTeamMate!]
+        let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
+        tmpTrack.ContextOwner = datasource.allTeamMates.team[indxOfTeamMate!]
         
         // Update new written track item
         tracks.remove(at: idx)
@@ -86,8 +74,8 @@ public func routes(_ router: Router) throws {
         var tmpTrack = tracks[idx]
         //update Owner
         let RotatIn = try req.parameters.next(String.self)
-        let indxOfTeamMate = allTeamMates.team.firstIndex(where: {$0.name == RotatIn})
-        tmpTrack.RotateInPerson = allTeamMates.team[indxOfTeamMate!]
+        let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == RotatIn})
+        tmpTrack.RotateInPerson = datasource.allTeamMates.team[indxOfTeamMate!]
         
         // Update new written track item
         tracks.remove(at: idx)
@@ -103,11 +91,11 @@ public func routes(_ router: Router) throws {
     
     router.get("team", "mate", String.parameter, "out") { req -> Future<Response> in
         let teammateName = try req.parameters.next(String.self)
-        let indxOfTeamMate = allTeamMates.team.firstIndex(where: {$0.name == teammateName})
+        let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == teammateName})
         
-        let teammate = allTeamMates.team[indxOfTeamMate!]
+        let teammate = datasource.allTeamMates.team[indxOfTeamMate!]
         print("log: \(teammate)")
-        out.team.append(teammate)
+        datasource.out.team.append(teammate)
         return req.future().map() {
             return req.redirect(to: "/")
         }
