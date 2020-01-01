@@ -13,19 +13,10 @@ public func routes(_ router: Router) throws {
     // "It works" page
     let message = "Welcome to Course"
     var datasource = TeamDataSource()
-    let teammates = TeamMates()
-    
-    // Init Data
-        
-    // Tracks
-    var track1 = Track(TrackId: 1, ContextOwner: teammates.teamate4, RotateInPerson: teammates.teamate5, TrackName: "Azure")
-    var track2 = Track(TrackId: 2, ContextOwner: teammates.teamate6, RotateInPerson: teammates.teamate7, TrackName: "AWS")
-    var track3 = Track(TrackId: 3, ContextOwner: teammates.teamate8, RotateInPerson: teammates.teamate3, TrackName: "Mongo")
-    
-    var tracks = [track1, track2, track3]
+    let tc = TrackController()
+    var tracks = tc.tracks()
     
     router.get { req -> Future<View> in
-
         let board = Board(message: message, team: datasource.team, teamout: datasource.out, tracks: tracks)
         return try req.view().render("main", board )
     }
