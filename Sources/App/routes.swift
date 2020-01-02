@@ -96,7 +96,10 @@ public func routes(_ router: Router) throws {
     
 
     router.group("teammates") {group in
-        group.get(){ req -> Future<View> in
+        group.get(){ req in
+            return "here will be show a lsit of all team members"
+        }
+        group.get("mate"){ req -> Future<View> in
             let content = "hello"
             return try req.view().render("pages/add_teammates.leaf", content )
         }
