@@ -1,5 +1,6 @@
 import Leaf
 import Vapor
+import FluentPostgreSQL
 
 /// Called before your application initializes.
 public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
@@ -19,4 +20,12 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
     middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
     services.register(middlewares)
+    
+    // Register Database
+    try services.register(FluentPostgreSQLProvider())
+    
+    // Migration for Database
+    var migrations = MigrationConfig()
+    migrations.add(model: TeamMateDbModel.self, database: .psql)
+    services.register(migrations)
 }

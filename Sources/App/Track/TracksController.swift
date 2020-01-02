@@ -9,20 +9,17 @@ import Foundation
 
 class TrackController {
     
-    let teammates:TeamMates;
+    let teammates:TeamMatesDummyDS;
     var track1, track2, track3 : Track;
     init() {
-     teammates = TeamMates()
+        teammates = TeamMatesDummyDS()
         track1 = Track(TrackId: 1, ContextOwner: teammates.teamate4, RotateInPerson: teammates.teamate5, TrackName: "Azure")
         track2 = Track(TrackId: 2, ContextOwner: teammates.teamate6, RotateInPerson: teammates.teamate7, TrackName: "AWS")
         track3 = Track(TrackId: 3, ContextOwner: teammates.teamate8, RotateInPerson: teammates.teamate3, TrackName: "Mongo")
-        
     }
-        
-    // Tracks
     
+    // Tracks
     func tracks() -> [Track]{
-          return [track1, track2, track3]
+        return [track1, track2, track3]
     }
-  
 }

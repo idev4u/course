@@ -11,7 +11,7 @@ import Vapor
 struct TeamMate: Encodable, Content {
     let name: String
     let surename: String
-    let image: Data?
+    let image: File?
     var isOut: Bool?
     var assingedTrackId: Int?
 }

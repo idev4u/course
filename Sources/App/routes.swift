@@ -104,13 +104,17 @@ public func routes(_ router: Router) throws {
             return try req.content.decode(TeamMate.self).map(to: Response.self) { teammate in
                 print(teammate.name) // "Vapor"
                 print(teammate.surename) // 3
-                print(teammate.image) // Raw image data
+                print(teammate.image?.filename ?? "ups no image") // Raw image data
                 print(teammate.isOut ?? true)
+                let teamMateDidCreate = TeamMateDbModel.init(id: nil, name: teammate.name, surename: teammate.surename, image: teammate.image, isOut: false, assignedTrackId: nil)
+                _ = teamMateDidCreate.create(on: req)
                 return req.redirect(to: "/teammates")
             }
             // FIXME: add error handling for files greater 1Mb
         
         }
     }
-
+    router.get("teamatesfromdb") { req in
+        return TeamMateDbModel.query(on: req).all()
+    }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-let t = TeamMates()
+let t = TeamMatesDummyDS()
 
 // define the data source
 struct TeamDataSource {
