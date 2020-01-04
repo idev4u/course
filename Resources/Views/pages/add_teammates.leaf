@@ -15,14 +15,8 @@
 
 <body>
   <div class="container">
-    <h2> Add a new teammates</h2>
+    <h2> Add a new team mate</h2>
   </div>
-  <!-- form method="POST" action="/teammates/add" enctype="multipart/form-data">
-        <input type="text" name="name">
-    <input type="text" name="surename">
-    <input type="file" name="image">
-    <button type="submit" name="action">Save</button>
-  </form> -->
   <div class="container">
 
     <form method="POST" action="/teammates/add" enctype="multipart/form-data">

@@ -50,7 +50,7 @@
                             <th scope="row">#(mate.id)</th>
                             <!--<td><img src="#(mate.image.data)"></td>-->
                             <!--<td><img class="img-thumbnail img-fluid" src="images/it-works.png" alt="Card image cap"></td>-->
-                            <td><img class="img-thumbnail img-fluid" src="data:image/png;base64, #(mate.image)" alt="ups no file"></td>
+                            <td><img class="img-thumbnail img-fluid" src="data:image/png;base64, #(mate.image)" alt="ups no file" style="width: 4rem;"></td>
                             <td>#(mate.name)</td>
                             <td>#(mate.surename)</td>
                             <td>
