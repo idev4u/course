@@ -31,7 +31,7 @@ import Vapor
 //
 //extension TeamMateDbModel: Content { }
 
-struct TeamMateDbModel: PostgreSQLModel, Content, Migration {
+struct TeamMateDbModel: PostgreSQLModel, Content, Migration, Parameter {
     var id: Int?
     var name: String
     var surename: String

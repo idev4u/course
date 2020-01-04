@@ -15,6 +15,7 @@ margin: 0;
         <table class="table">
             <thead>
               <tr>
+                <th scope="col">Id</th>
                 <th scope="col">Name</th>
                 <th scope="col">SureName</th>
                 <th scope="col">Action</th>
@@ -23,9 +24,18 @@ margin: 0;
             <tbody>
             #for(mate in teammatelist) {
               <tr>
+                <th scope="row">#(mate.id)</th>
                 <td>#(mate.name)</td>
                 <td>#(mate.surename)</td>
-                <td>delete</td>
+                <td>
+                    <form method="POST" action="/teammates/mate/#(mate.id)/delete">
+                        <div class="form-group input-group">
+                            <span class="input-group-btn">
+                                <input class="btn btn-danger" type="submit" value="delete" />
+                            </span>
+                        </div>
+                    </form>
+                </td>
               </tr>
             }
             </tbody>

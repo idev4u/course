@@ -121,6 +121,14 @@ public func routes(_ router: Router) throws {
             // FIXME: add error handling for files greater 1Mb
         
         }
+        // mate/#(mate.id)/delete
+        group.post("mate", TeamMateDbModel.parameter, "delete"){ req -> Future<Response> in
+            return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
+                return mate.delete(on: req).map { _ in
+                    return req.redirect(to: "/teammates")
+                }
+            }
+        }
     }
     router.get("teamatesfromdb") { req in
         return TeamMateDbModel.query(on: req).all()
