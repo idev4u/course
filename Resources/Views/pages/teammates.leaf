@@ -1,45 +1,75 @@
 <!DOCTYPE html>
 <html>
 <style>
-html, body {
-height: 100%;
-margin: 0;
-}
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
 </style>
-    <head>
-        #embed("common/header/stylesheet-bootstrap")
-        <title>Team Members</title>
-    </head>
-    <body>
-        <p> this is the teammates add section</p>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">SureName</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            #for(mate in teammatelist) {
-              <tr>
-                <th scope="row">#(mate.id)</th>
-                <td>#(mate.name)</td>
-                <td>#(mate.surename)</td>
-                <td>
-                    <form method="POST" action="/teammates/mate/#(mate.id)/delete">
-                        <div class="form-group input-group">
-                            <span class="input-group-btn">
-                                <input class="btn btn-danger" type="submit" value="delete" />
-                            </span>
-                        </div>
-                    </form>
-                </td>
-              </tr>
-            }
-            </tbody>
-        </table>
-        #embed("common/scripts/layout-scripts")
-    </body>
-</html>
+
+<head>
+  #embed("common/header/stylesheet-bootstrap")
+  <title>Team Members</title>
+</head>
+
+<body>
+  <header></header>
+  <!-- <main role="main"> -->
+  <div class="container">
+    <!-- <div class="table-wrapper"> -->
+    <!-- <div class="row">
+      <div class="col-sm-6">
+        <h2>Manage <b>Team Members</b></h2>
+      </div>
+      <div class="col-sm-6">
+        <a href="#/teammates/mate" class="btn btn-primary"><span>Add
+                            Mate</span></a>
+      </div>
+    </div> -->
+    <div class="jumbotron jumbotron-default">
+      <div class="container">
+        <h1 class="display-6">Manage <b>Team Members
+        </h1>
+        <p class="lead"><a href="/teammates/mate" class="btn  btn-primary float-right"><span>Add Mate</span></a></p>
+       </div>
+    </div>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">SureName</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        #for(mate in teammatelist) {
+                        <tr>
+                            <th scope="row">#(mate.id)</th>
+                            <td>#(mate.name)</td>
+                            <td>#(mate.surename)</td>
+                            <td>
+                                <form method="POST"
+                                    action="/teammates/mate/#(mate.id)/delete">
+                                    <div class="form-group input-group">
+                                        <span class="input-group-btn">
+                                            <input class="btn btn-danger"
+                                                type="submit" value="delete"
+                                                />
+                                        </span>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- </div> -->
+            <!-- </main> -->
+            <footer></footer>
+            #embed("common/scripts/layout-scripts")
+        </body>
+
+    </html>
