@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<style>
+html, body {
+height: 100%;
+margin: 0;
+}
+</style>
+    <head>
+        #embed("common/header/stylesheet-bootstrap")
+        <title>Team Members</title>
+    </head>
+    <body>
+        <p> this is the teammates add section</p>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">SureName</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            #for(mate in teammatelist) {
+              <tr>
+                <td>#(mate.name)</td>
+                <td>#(mate.surename)</td>
+                <td>delete</td>
+              </tr>
+            }
+            </tbody>
+        </table>
+        #embed("common/scripts/layout-scripts")
+    </body>
+</html>
