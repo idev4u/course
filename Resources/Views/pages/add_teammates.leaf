@@ -1,23 +1,57 @@
 <!DOCTYPE html>
 <html>
 <style>
-html, body {
-height: 100%;
-margin: 0;
-}
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
 </style>
-    <head>
-        #embed("common/header/stylesheet-bootstrap")
-        <title>Add User</title>
-    </head>
-    <body>
-        <p> this is the teammates add section</p>
-        <form method="POST" action="/teammates/add" enctype="multipart/form-data">
-            <input type="text" name="name">
-            <input type="text" name="surename">
-            <input type="file" name="image">
-            <button type="submit" name="action">Save</button>
-        </form>
-        #embed("common/scripts/layout-scripts")
-    </body>
+
+<head>
+  #embed("common/header/stylesheet-bootstrap")
+  <title>Add User</title>
+</head>
+
+<body>
+  <div class="container">
+    <h2> Add a new teammates</h2>
+  </div>
+  <!-- form method="POST" action="/teammates/add" enctype="multipart/form-data">
+        <input type="text" name="name">
+    <input type="text" name="surename">
+    <input type="file" name="image">
+    <button type="submit" name="action">Save</button>
+  </form> -->
+  <div class="container">
+
+    <form method="POST" action="/teammates/add" enctype="multipart/form-data">
+      <div class="form-group col-md-4">
+        <label for="inputName">Name</label>
+        <input type="text" name="name" class="form-control" id="inputName" placeholder="Name">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputSurename">Surename</label>
+        <input type="text" name="surename" class="form-control" id="inputSurename" placeholder="Surename">
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="exampleFormControlFile1">Example file input</label>
+        <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+      </div>
+      <div class="row col-md-4">
+        <div class="col">
+          <button type="submit" name="action" class="btn
+                            btn-primary float-md-left">save</button>
+        </div>
+        <div class="col">
+          <a href="/teammates" class="btn btn-secondary
+                            float-md-right">cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+  #embed("common/scripts/layout-scripts")
+</body>
+
 </html>
