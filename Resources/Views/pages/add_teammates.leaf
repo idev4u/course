@@ -14,8 +14,11 @@
 </head>
 
 <body>
+
   <div class="container">
-    <h2> Add a new team mate</h2>
+    <div class="jumbotron">
+      <h2> Add a new team mate</h2>
+    </div>
   </div>
   <div class="container">
 
