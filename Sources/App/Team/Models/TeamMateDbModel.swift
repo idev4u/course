@@ -35,7 +35,7 @@ struct TeamMateDbModel: PostgreSQLModel, Content, Migration, Parameter {
     var id: Int?
     var name: String
     var surename: String
-    var image: File?
+    var image: Data?
     var isOut: Bool?
     var assignedTrackId: Int?
 }
