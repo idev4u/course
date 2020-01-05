@@ -17,32 +17,13 @@ public func routes(_ router: Router) throws {
     var tracks = tc.tracks()
     
     router.get { req -> Future<View> in
-        let allTeamMates = TeamMateDbModel.query(on: req).all()
-//        Galaxy.query(on: conn).filter(\.name == "Milky Way")
         let allTeamMatesIn = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).all()
         let allTeamMatesOut = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, true).all()
-        //Futrure<[Message]>
-        var teamIn = Team(team: allTeamMatesIn)
-        var teamOut = Team(team: allTeamMatesOut)
-        return allTeamMates.flatMap { mate in
-          let data = ["Teammatelist": mate]
-          let mateArray = data["Teammatelist"]!
-//            var teamIn = Team(team: [TeamMateDbModel]())
-//            var teamOut = Team(team: [TeamMateDbModel]())
-//            for mate in mateArray {
-//                if mate.isOut == true {
-//                    teamOut.team.append(mate)
-//                } else {
-//                    teamIn.team.append(mate)
-//                }
-//            }
-          
-          
-            let board = Board(message: message, team: teamIn , teamout: teamOut, tracks: tracks)
-          return try req.view().render("main", board )
-        }
-
-        
+        // TDOD: Fetch tracks from db
+        let teamIn = Team(team: allTeamMatesIn)
+        let teamOut = Team(team: allTeamMatesOut)
+        let board = Board(message: message, team: teamIn , teamout: teamOut, tracks: tracks)
+        return try req.view().render("main", board )
     }
     // tracks
     // has to changed to put
