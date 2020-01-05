@@ -46,23 +46,22 @@
         </div>
         <div class="col-md-10">
           <ul class="list-group">
+            <!-- anfang -->
+            #for(track in tracklist) {
             <li class="list-group-item">
               <div class="form-row">
-                <form class="form-inline col-md-12" method="POST" action="/manage/tracks/track/#(mate.id)/delete">
+                <form class="form-inline col-md-12" method="POST" action="/manage/tracks/track/#(track.id)/delete">
                   <div class="form-group col-md-10
                                                 mr-auto">
-                    <label>Securtiy</label>
+                    <label>#(track.name)</label>
                   </div>
                   <input class="btn btn-danger
                                                 float-right" type="submit" value="delete" />
                 </form>
               </div>
             </li>
-            <li class="list-group-item">Cloud Consulting</li>
-            <li class="list-group-item">Cloud City to the Cloud
-            </li>
-            <li class="list-group-item">Reference Architecture
-            </li>
+            }
+            <!-- end -->
           </ul>
         </div>
       </div>

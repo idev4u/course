@@ -135,16 +135,17 @@ public func routes(_ router: Router) throws {
     // Manage Tracks
     router.group("manage","tracks") {group in
         group.get() { req -> Future<View> in
-            let tracks = "tracks"
-            return try req.view().render("pages/manage/tracks/tracks.leaf", tracks)
+            let allTracks = Track.query(on: req).all()
+            return allTracks.flatMap { track in
+                let tracks = ["tracklist": track]
+                return try req.view().render("pages/manage/tracks/tracks.leaf", tracks)
+            }
+            
         }
         group.post("add"){req -> Future<Response> in
             return try req.content.decode(Track.self).map(to: Response.self) { track in
-                let didCreate = Track.init(id: nil, ContextOwner: nil, RotateInPerson: nil, name: track.name)
-                _ = didCreate.create(on: req)
-                print(didCreate) // "Vapor"
-//                let teamMateDidCreate = TeamMateDbModel.init(id: nil, name: teammate.name, surename: teammate.surename, image: teammate.image?.data.base64EncodedData(), isOut: false, assignedTrackId: nil)
-//                _ = teamMateDidCreate.create(on: req)
+                let didCreateTrack = track.create(on: req)
+                print(didCreateTrack)
                 return req.redirect(to: "/manage/tracks")
             }
 
