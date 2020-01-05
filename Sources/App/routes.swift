@@ -30,7 +30,7 @@ public func routes(_ router: Router) throws {
                 print("Log: trackname \(trackname)")
                 print("Log: tracks \(tracks.debugDescription)")
                 //array.filter {$0.eventID == id}.first?.added = value
-                let idx:Int = tracks.firstIndex(where: { $0.TrackName == trackname})!
+                let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
         
                 // Load track from tracks array
                 print("index of azure \(idx)")
@@ -57,7 +57,7 @@ public func routes(_ router: Router) throws {
             print("Log: trackname \(trackname)")
             print("Log: tracks \(tracks.debugDescription)")
             //array.filter {$0.eventID == id}.first?.added = value
-            let idx:Int = tracks.firstIndex(where: { $0.TrackName == trackname})!
+            let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
             
             // Load track from tracks array
             print("index of azure \(idx)")
@@ -133,8 +133,22 @@ public func routes(_ router: Router) throws {
     }
     
     // Manage Tracks
-    router.get("manage","tracks") { req -> Future<View> in
-        let tracks = "tracks"
-        return try req.view().render("pages/manage/tracks/tracks.leaf", tracks)
+    router.group("manage","tracks") {group in
+        group.get() { req -> Future<View> in
+            let tracks = "tracks"
+            return try req.view().render("pages/manage/tracks/tracks.leaf", tracks)
+        }
+        group.post("add"){req -> Future<Response> in
+            return try req.content.decode(Track.self).map(to: Response.self) { track in
+                let didCreate = Track.init(id: nil, ContextOwner: nil, RotateInPerson: nil, name: track.name)
+                _ = didCreate.create(on: req)
+                print(didCreate) // "Vapor"
+//                let teamMateDidCreate = TeamMateDbModel.init(id: nil, name: teammate.name, surename: teammate.surename, image: teammate.image?.data.base64EncodedData(), isOut: false, assignedTrackId: nil)
+//                _ = teamMateDidCreate.create(on: req)
+                return req.redirect(to: "/manage/tracks")
+            }
+
+        }
     }
+    
 }

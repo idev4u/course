@@ -31,7 +31,7 @@
         <form class="form-inline col-md-10" method="POST" action="/manage/tracks/add" enctype="multipart/form-data">
           <div class="form-group col-md-4">
             <!-- <label for="inputTrackName">Trackname</label> -->
-            <input type="text" name="trackname" class="form-control" id="inputTrackName" placeholder="Trackname">
+            <input type="text" name="name" class="form-control" id="inputTrackName" placeholder="Trackname">
           </div>
           <button type="submit" name="action" class="btn
                                 btn-primary">add</button>

@@ -5,11 +5,14 @@
 //  Created by Norman Sutorius on 20.07.19.
 //
 
-import Foundation
+import FluentPostgreSQL
+import Vapor
 
-struct Track:Encodable {
-    let TrackId: Int
-    var ContextOwner:TeamMate
-    var RotateInPerson:TeamMate
-    var TrackName: String
+
+
+struct Track: PostgreSQLModel, Content, Migration, Parameter {
+    var id: Int?
+    var ContextOwner:TeamMate?
+    var RotateInPerson:TeamMate?
+    var name: String
 }

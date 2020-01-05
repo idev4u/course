@@ -13,9 +13,9 @@ class TrackController {
     var track1, track2, track3 : Track;
     init() {
         teammates = TeamMatesDummyDS()
-        track1 = Track(TrackId: 1, ContextOwner: teammates.teamate4, RotateInPerson: teammates.teamate5, TrackName: "Azure")
-        track2 = Track(TrackId: 2, ContextOwner: teammates.teamate6, RotateInPerson: teammates.teamate7, TrackName: "AWS")
-        track3 = Track(TrackId: 3, ContextOwner: teammates.teamate8, RotateInPerson: teammates.teamate3, TrackName: "Mongo")
+        track1 = Track(id: 1, ContextOwner: teammates.teamate4, RotateInPerson: teammates.teamate5, name: "Azure")
+        track2 = Track(id: 2, ContextOwner: teammates.teamate6, RotateInPerson: teammates.teamate7, name: "AWS")
+        track3 = Track(id: 3, ContextOwner: teammates.teamate8, RotateInPerson: teammates.teamate3, name: "Mongo")
     }
     
     // Tracks
