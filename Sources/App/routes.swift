@@ -95,12 +95,12 @@ public func routes(_ router: Router) throws {
     }
     
 
-    router.group("teammates") {group in
+    router.group("manage", "team") {group in
         group.get(){ req -> Future<View>in
             let allTeamMates = TeamMateDbModel.query(on: req).all()
             return allTeamMates.flatMap { mate in
                 let content = ["teammatelist": mate]
-                return try req.view().render("pages/teammates.leaf", content )
+                return try req.view().render("pages/manage/team/mates.leaf", content )
             }
             
         }
@@ -108,7 +108,7 @@ public func routes(_ router: Router) throws {
             let content = "hello"
             return try req.view().render("pages/add_teammates.leaf", content )
         }
-        group.post("add") { req -> Future<Response> in
+        group.post("mate","add") { req -> Future<Response> in
             return try req.content.decode(TeamMate.self).map(to: Response.self) { teammate in
                 print(teammate.name) // "Vapor"
                 print(teammate.surename) // 3
@@ -117,7 +117,7 @@ public func routes(_ router: Router) throws {
                 print(teammate.isOut ?? true)
                 let teamMateDidCreate = TeamMateDbModel.init(id: nil, name: teammate.name, surename: teammate.surename, image: teammate.image?.data.base64EncodedData(), isOut: false, assignedTrackId: nil)
                 _ = teamMateDidCreate.create(on: req)
-                return req.redirect(to: "/teammates")
+                return req.redirect(to: "/manage/team")
             }
             // FIXME: add error handling for files greater 1Mb
         
@@ -126,7 +126,7 @@ public func routes(_ router: Router) throws {
         group.post("mate", TeamMateDbModel.parameter, "delete"){ req -> Future<Response> in
             return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
                 return mate.delete(on: req).map { _ in
-                    return req.redirect(to: "/teammates")
+                    return req.redirect(to: "/manage/team")
                 }
             }
         }

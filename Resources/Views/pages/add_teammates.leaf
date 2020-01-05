@@ -22,7 +22,7 @@
   </div>
   <div class="container">
 
-    <form method="POST" action="/teammates/add" enctype="multipart/form-data">
+    <form method="POST" action="/manage/team/mate/add" enctype="multipart/form-data">
       <div class="form-group col-md-4">
         <label for="inputName">Name</label>
         <input type="text" name="name" class="form-control" id="inputName" placeholder="Name">
@@ -39,11 +39,11 @@
       <div class="row col-md-4">
         <div class="col">
           <button type="submit" name="action" class="btn
-                            btn-primary float-md-left">save</button>
+              btn-primary float-md-left">save</button>
         </div>
         <div class="col">
-          <a href="/teammates" class="btn btn-secondary
-                            float-md-right">cancel</a>
+          <a href="/manage/team" class="btn btn-secondary
+              float-md-right">cancel</a>
         </div>
       </div>
     </form>

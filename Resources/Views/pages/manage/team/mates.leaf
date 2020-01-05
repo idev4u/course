@@ -31,7 +31,7 @@
       <div class="container">
         <h1 class="display-6">Manage <b>Team Members
         </h1>
-        <p class="lead"><a href="/teammates/mate" class="btn  btn-primary float-right"><span>Add Mate</span></a></p>
+        <p class="lead"><a href="/manage/team/mate" class="btn  btn-primary float-right"><span>Add Mate</span></a></p>
        </div>
     </div>
                 <table class="table">
@@ -55,7 +55,7 @@
                             <td>#(mate.surename)</td>
                             <td>
                                 <form method="POST"
-                                    action="/teammates/mate/#(mate.id)/delete">
+                                    action="/manage/team/mate/#(mate.id)/delete">
                                     <div class="form-group input-group">
                                         <span class="input-group-btn">
                                             <input class="btn btn-danger"
