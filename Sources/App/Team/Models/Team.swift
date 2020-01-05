@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Vapor
 
 struct Team: Encodable {
-    var team: [TeamMate]
+    var team: Future<[TeamMateDbModel]>
 }

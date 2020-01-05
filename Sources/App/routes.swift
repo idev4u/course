@@ -17,8 +17,32 @@ public func routes(_ router: Router) throws {
     var tracks = tc.tracks()
     
     router.get { req -> Future<View> in
-        let board = Board(message: message, team: datasource.team, teamout: datasource.out, tracks: tracks)
-        return try req.view().render("main", board )
+        let allTeamMates = TeamMateDbModel.query(on: req).all()
+//        Galaxy.query(on: conn).filter(\.name == "Milky Way")
+        let allTeamMatesIn = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).all()
+        let allTeamMatesOut = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, true).all()
+        //Futrure<[Message]>
+        var teamIn = Team(team: allTeamMatesIn)
+        var teamOut = Team(team: allTeamMatesOut)
+        return allTeamMates.flatMap { mate in
+          let data = ["Teammatelist": mate]
+          let mateArray = data["Teammatelist"]!
+//            var teamIn = Team(team: [TeamMateDbModel]())
+//            var teamOut = Team(team: [TeamMateDbModel]())
+//            for mate in mateArray {
+//                if mate.isOut == true {
+//                    teamOut.team.append(mate)
+//                } else {
+//                    teamIn.team.append(mate)
+//                }
+//            }
+          
+          
+            let board = Board(message: message, team: teamIn , teamout: teamOut, tracks: tracks)
+          return try req.view().render("main", board )
+        }
+
+        
     }
     // tracks
     // has to changed to put
@@ -37,8 +61,8 @@ public func routes(_ router: Router) throws {
                 var tmpTrack = tracks[idx]
                 //update Owner
                 let NewOwner = try req.parameters.next(String.self)
-                let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
-                tmpTrack.ContextOwner = datasource.allTeamMates.team[indxOfTeamMate!]
+//                let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
+//                tmpTrack.ContextOwner = datasource.allTeamMates.team[indxOfTeamMate!]
         
                 // Update new written track item
                 tracks.remove(at: idx)
@@ -64,8 +88,8 @@ public func routes(_ router: Router) throws {
             var tmpTrack = tracks[idx]
             //update Owner
             let RotatIn = try req.parameters.next(String.self)
-            let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == RotatIn})
-            tmpTrack.RotateInPerson = datasource.allTeamMates.team[indxOfTeamMate!]
+//            let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == RotatIn})
+//            tmpTrack.RotateInPerson = datasource.allTeamMates.team[indxOfTeamMate!]
             
             // Update new written track item
             tracks.remove(at: idx)
@@ -83,11 +107,11 @@ public func routes(_ router: Router) throws {
     
     router.get("team", "mate", String.parameter, "out") { req -> Future<Response> in
         let teammateName = try req.parameters.next(String.self)
-        let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == teammateName})
+//        let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == teammateName})
         
-        let teammate = datasource.allTeamMates.team[indxOfTeamMate!]
-        print("log: \(teammate)")
-        datasource.out.team.append(teammate)
+//        let teammate = datasource.allTeamMates.team[indxOfTeamMate!]
+//        print("log: \(teammate)")
+//        datasource.out.team.append(teammate)
         
         return req.future().map() {
             return req.redirect(to: "/")
