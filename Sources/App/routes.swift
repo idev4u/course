@@ -131,7 +131,10 @@ public func routes(_ router: Router) throws {
             }
         }
     }
-    router.get("teamatesfromdb") { req in
-        return TeamMateDbModel.query(on: req).all()
+    
+    // Manage Tracks
+    router.get("manage","tracks") { req -> Future<View> in
+        let tracks = "tracks"
+        return try req.view().render("pages/manage/tracks/tracks.leaf", tracks)
     }
 }
