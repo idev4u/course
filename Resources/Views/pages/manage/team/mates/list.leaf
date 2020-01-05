@@ -15,18 +15,7 @@
 
 <body>
   <header></header>
-  <!-- <main role="main"> -->
   <div class="container">
-    <!-- <div class="table-wrapper"> -->
-    <!-- <div class="row">
-      <div class="col-sm-6">
-        <h2>Manage <b>Team Members</b></h2>
-      </div>
-      <div class="col-sm-6">
-        <a href="#/teammates/mate" class="btn btn-primary"><span>Add
-                            Mate</span></a>
-      </div>
-    </div> -->
     <div class="jumbotron jumbotron-default">
       <div class="container">
         <h1 class="display-6">Manage <b>Team Members
@@ -48,8 +37,6 @@
                         #for(mate in teammatelist) {
                         <tr>
                             <th scope="row">#(mate.id)</th>
-                            <!--<td><img src="#(mate.image.data)"></td>-->
-                            <!--<td><img class="img-thumbnail img-fluid" src="images/it-works.png" alt="Card image cap"></td>-->
                             <td><img class="img-thumbnail img-fluid" src="data:image/png;base64, #(mate.image)" alt="ups no file" style="width: 4rem;"></td>
                             <td>#(mate.name)</td>
                             <td>#(mate.surename)</td>
@@ -70,8 +57,6 @@
                     </tbody>
                 </table>
             </div>
-            <!-- </div> -->
-            <!-- </main> -->
             <footer></footer>
             #embed("common/scripts/layout-scripts")
         </body>
