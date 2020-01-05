@@ -100,13 +100,13 @@ public func routes(_ router: Router) throws {
             let allTeamMates = TeamMateDbModel.query(on: req).all()
             return allTeamMates.flatMap { mate in
                 let content = ["teammatelist": mate]
-                return try req.view().render("pages/manage/team/mates.leaf", content )
+                return try req.view().render("pages/manage/team/mates/list.leaf", content )
             }
             
         }
         group.get("mate"){ req -> Future<View> in
             let content = "hello"
-            return try req.view().render("pages/add_teammates.leaf", content )
+            return try req.view().render("pages/manage/team/mates/add.leaf", content )
         }
         group.post("mate","add") { req -> Future<Response> in
             return try req.content.decode(TeamMate.self).map(to: Response.self) { teammate in
