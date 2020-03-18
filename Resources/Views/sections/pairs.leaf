@@ -3,8 +3,8 @@
   <div class="row">
   #for(track in tracks) {
     <div class="col-12 col-md-6 col-xl-4">
+            <div class="label w-100 text-center">#(track.name)</div>
             <div class="d-flex p-2">
-                
                 <div class="card d-flex flex-column align-items-start" style="width: 9rem;">
                     <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
                         <div class="card-body">
@@ -44,7 +44,7 @@
                         </div>
                 </div>
             </div>              
-            <div class="label w-100 text-center">#(track.name)</div>
+<!--            <div class="label w-100 text-center">#(track.name)</div>-->
         </div>
             }
   </div>
