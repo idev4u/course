@@ -8,8 +8,6 @@
 import FluentPostgreSQL
 import Vapor
 
-
-
 struct Track: PostgreSQLModel, Content, Migration, Parameter {
     var id: Int?
     var ContextOwner:TeamMateDbModel?

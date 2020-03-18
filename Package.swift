@@ -11,9 +11,11 @@ let package = Package(
         .package(url: "https://github.com/vapor/leaf.git", from: "3.0.0"),
         // Fluent
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "1.0.0" ),
+        // Async
+        .package(url: "https://github.com/vapor/core.git", from: "3.0.0"),
     ],
     targets: [
-        .target(name: "App", dependencies: ["Leaf", "Vapor", "FluentPostgreSQL"]),
+        .target(name: "App", dependencies: ["Leaf", "Vapor", "FluentPostgreSQL", "Async"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]

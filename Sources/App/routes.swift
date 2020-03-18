@@ -4,7 +4,10 @@ struct Board: Encodable {
     let message: String
     let team: Team
     let teamout: Team
-    let tracks: [Track]
+    
+//    let tracks: Tracks
+    let tracks: Future<[Track]>
+//    let tracks: Future<[String]>
     
 }
 
@@ -14,7 +17,7 @@ public func routes(_ router: Router) throws {
     let message = "Welcome to Course"
     var datasource = TeamDataSource()
     let tc = TrackController()
-    var tracks = tc.tracks()
+//    var tracks = tc.tracksA()
     
     router.get { req -> Future<View> in
         let allTeamMatesIn = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).all()
@@ -22,7 +25,11 @@ public func routes(_ router: Router) throws {
         // TDOD: Fetch tracks from db
         let teamIn = Team(team: allTeamMatesIn)
         let teamOut = Team(team: allTeamMatesOut)
-        let board = Board(message: message, team: teamIn , teamout: teamOut, tracks: tracks)
+//        let track
+        // todo tracks are empty ????
+        let mytracks = tc.tracksAsync(req: req)
+        print(mytracks)
+        let board = Board(message: message, team: teamIn , teamout: teamOut, tracks: mytracks)
         return try req.view().render("main", board )
     }
     // tracks
@@ -33,23 +40,23 @@ public func routes(_ router: Router) throws {
                 //TrackIdentifier
                 let trackname = try req.parameters.next(String.self)
                 print("Log: trackname \(trackname)")
-                print("Log: tracks \(tracks.debugDescription)")
+//                print("Log: tracks \(tracks.debugDescription)")
                 //array.filter {$0.eventID == id}.first?.added = value
-                let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
+//                let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
         
                 // Load track from tracks array
-                print("index of azure \(idx)")
-                var tmpTrack = tracks[idx]
+//                print("index of azure \(idx)")
+//                var tmpTrack = tracks[idx]
                 //update Owner
                 let NewOwner = try req.parameters.next(String.self)
 //                let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
 //                tmpTrack.ContextOwner = datasource.allTeamMates.team[indxOfTeamMate!]
         
                 // Update new written track item
-                tracks.remove(at: idx)
-                tracks.insert(tmpTrack, at: idx)
+//                tracks.remove(at: idx)
+//                tracks.insert(tmpTrack, at: idx)
         
-                print("Log: after update tracks \(tracks.debugDescription)")
+//                print("Log: after update tracks \(tracks.debugDescription)")
         
                 // Return to main view
                 return req.future().map() {
@@ -60,23 +67,23 @@ public func routes(_ router: Router) throws {
             //TrackIdentifier
             let trackname = try req.parameters.next(String.self)
             print("Log: trackname \(trackname)")
-            print("Log: tracks \(tracks.debugDescription)")
+//            print("Log: tracks \(tracks.debugDescription)")
             //array.filter {$0.eventID == id}.first?.added = value
-            let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
+//            let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
             
             // Load track from tracks array
-            print("index of azure \(idx)")
-            var tmpTrack = tracks[idx]
+//            print("index of azure \(idx)")
+//            var tmpTrack = tracks[idx]
             //update Owner
             let RotatIn = try req.parameters.next(String.self)
 //            let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == RotatIn})
 //            tmpTrack.RotateInPerson = datasource.allTeamMates.team[indxOfTeamMate!]
             
             // Update new written track item
-            tracks.remove(at: idx)
-            tracks.insert(tmpTrack, at: idx)
+//            tracks.remove(at: idx)
+//            tracks.insert(tmpTrack, at: idx)
             
-            print("Log: after update tracks \(tracks.debugDescription)")
+//            print("Log: after update tracks \(tracks.debugDescription)")
             
             // Return to main view
             return req.future().map() {
