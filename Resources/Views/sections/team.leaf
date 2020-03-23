@@ -37,7 +37,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     #for(teammates in team.team) {
-                    <a class="update owner" href="/team/mate/#(teammates.name)/out ">#(teammates.name)</a>
+                    <a class="update owner" href="/team/mate/#(teammates.id)/out ">#(teammates.name)</a>
                     }
                     </div>
                 </div>

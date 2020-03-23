@@ -1,4 +1,5 @@
 import Vapor
+import Fluent
 
 struct Board: Encodable {
     let message: String
@@ -25,8 +26,6 @@ public func routes(_ router: Router) throws {
         // TDOD: Fetch tracks from db
         let teamIn = Team(team: allTeamMatesIn)
         let teamOut = Team(team: allTeamMatesOut)
-//        let track
-        // todo tracks are empty ????
         let mytracks = tc.tracksAsync(req: req)
         print(mytracks)
         let board = Board(message: message, team: teamIn , teamout: teamOut, tracks: mytracks)
@@ -92,18 +91,17 @@ public func routes(_ router: Router) throws {
         }
     }
 
-    
-    router.get("team", "mate", String.parameter, "out") { req -> Future<Response> in
-        let teammateName = try req.parameters.next(String.self)
-//        let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == teammateName})
-        
-//        let teammate = datasource.allTeamMates.team[indxOfTeamMate!]
-//        print("log: \(teammate)")
-//        datasource.out.team.append(teammate)
-        
-        return req.future().map() {
-            return req.redirect(to: "/")
+    // out view
+    router.get("team", "mate", TeamMateDbModel.parameter, "out") { req -> Future<Response> in
+        // mark the mate that he is out
+        return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
+            var updateMate = mate
+            updateMate.isOut = true
+            return updateMate.update(on: req).map { mate in
+                return req.redirect(to: "/")
+            }
         }
+
     }
     
 
