@@ -8,7 +8,7 @@
                 <div class="card d-flex flex-column align-items-start" style="width: 9rem;">
                     <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">#(track.ContextOwner.name)
+                            <h5 class="card-title">#(track.ContextOwner.name) #(track.ContextOwner.surename)
                             </h5>
                             <!-- dropdown owner -->
                             <div class="dropdown">
@@ -27,7 +27,7 @@
                 <div class="card d-flex flex-column align-items-start" style="width: 9rem;">
                     <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">#(track.RotateInPerson.name)
+                            <h5 class="card-title">#(track.RotateInPerson.name) #(track.RotateInPerson.surename)
                             </h5>
                             <!-- dropdown rotatein-->
                             <div class="dropdown">

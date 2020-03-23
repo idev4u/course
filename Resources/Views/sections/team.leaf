@@ -5,11 +5,11 @@
         <div class="col-12 col-md-6 col-xl-4">
             <div class="d-flex p-2">
                 #for(teammates in team.team) {
-                <div class="card d-flex flex-column align-items-start" style="width: 5rem;">
-                    <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                <div class="card d-flex flex-column align-items-start">
+                    <img class="img-thumbnail" src="data:image/png;base64, #(teammates.image)" alt="Card image cap">
                         <div class="card-body">
-                            <h6 class="card-title">#(teammates.name)
-                            </h6>
+                            <h7 class="card-title">#(teammates.name) #(teammates.surename)
+                            </h7>
                         </div>
                 </div>
                 }
@@ -21,11 +21,12 @@
             
             <div class="d-flex p-2">
                 #for(teammates in teamout.team) {
-                <div class="card d-flex flex-column align-items-start" style="width: 5rem;">
-                    <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                <div class="card d-flex flex-column align-items-start" style="width: 10rem;">
+                    <img class="img-thumbnail" src="data:image/png;base64, #(teammates.image)" alt="Card image cap">
                         <div class="card-body">
-                         <h6 class="card-title">#(teammates.name)
-                         </h6>
+                         <h7 class="card-title">
+                             #(teammates.name) #(teammates.surename)
+                         </h7>
                         </div>
                 </div>
                 }
