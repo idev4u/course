@@ -26,41 +26,59 @@ public func routes(_ router: Router) throws {
         // TDOD: Fetch tracks from db
         let teamIn = Team(team: allTeamMatesIn)
         let teamOut = Team(team: allTeamMatesOut)
-        let mytracks = tc.tracksAsync(req: req)
-        print(mytracks)
-        let board = Board(message: message, team: teamIn , teamout: teamOut, tracks: mytracks)
+//        let mytracks = tc.tracksAsync(req: req)
+        let mytracksFromDB = tc.tracksFromDB(req: req)
+        print(mytracksFromDB)
+        let board = Board(message: message, team: teamIn , teamout: teamOut, tracks: mytracksFromDB)
         return try req.view().render("main", board )
     }
     // tracks
     // has to changed to put
     // "/tracks/<trackname>/update/owner/<ownername>
-    router.group("tracks", String.parameter, "update" ) { group in
-        group.get( "owner", String.parameter) { req -> Future<Response> in
+    router.group("tracks", Track.parameter, "update" ) { group in
+        group.get( "owner", TeamMateDbModel.parameter) { req -> Future<Response> in
                 //TrackIdentifier
-                let trackname = try req.parameters.next(String.self)
-                print("Log: trackname \(trackname)")
-//                print("Log: tracks \(tracks.debugDescription)")
-                //array.filter {$0.eventID == id}.first?.added = value
-//                let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
-        
-                // Load track from tracks array
-//                print("index of azure \(idx)")
-//                var tmpTrack = tracks[idx]
-                //update Owner
-                let NewOwner = try req.parameters.next(String.self)
-//                let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
-//                tmpTrack.ContextOwner = datasource.allTeamMates.team[indxOfTeamMate!]
-        
-                // Update new written track item
-//                tracks.remove(at: idx)
-//                tracks.insert(tmpTrack, at: idx)
-        
-//                print("Log: after update tracks \(tracks.debugDescription)")
-        
-                // Return to main view
-                return req.future().map() {
-                    return req.redirect(to: "/")
+//            let track = try req.parameters.next(Track.self)
+//            let mate = try req.parameters.next(TeamMateDbModel.self)
+            
+//            return track.update(on: req).map { mate in
+//                return req.redirect(to: "/")
+//            }
+            return try req.parameters.next(Track.self).flatMap { track in
+                return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
+                    var updateTrack = track
+                    print(mate)
+                    updateTrack.ContextOwner = mate
+                    return updateTrack.update(on: req).map { mate in
+                        return req.redirect(to: "/")
+                    }
                 }
+                
+            }
+//                let trackname = try req.parameters.next(String.self)
+//                print("Log: trackname \(trackname)")
+////                print("Log: tracks \(tracks.debugDescription)")
+//                //array.filter {$0.eventID == id}.first?.added = value
+////                let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
+//
+//                // Load track from tracks array
+////                print("index of azure \(idx)")
+////                var tmpTrack = tracks[idx]
+//                //update Owner
+//                let NewOwner = try req.parameters.next(String.self)
+////                let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
+////                tmpTrack.ContextOwner = datasource.allTeamMates.team[indxOfTeamMate!]
+//
+//                // Update new written track item
+////                tracks.remove(at: idx)
+////                tracks.insert(tmpTrack, at: idx)
+//
+////                print("Log: after update tracks \(tracks.debugDescription)")
+//
+//                // Return to main view
+//                return req.future().map() {
+//                    return req.redirect(to: "/")
+//                }
             }
         group.get("rotatein", String.parameter) { req -> Future<Response> in
             //TrackIdentifier

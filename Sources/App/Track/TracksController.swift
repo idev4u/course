@@ -34,4 +34,21 @@ class TrackController {
 
         return result
     }
+    
+    func tracksFromDB(req:Request) -> Future<[Track]>{
+        let allTracks = Track.query(on: req).sort(\.id, .descending).all()
+//        let tracksCol = allTracks.map(to: [Track].self) { someTracks in
+//            for t in someTracks {
+//                print(t)
+//                
+//            }
+//            return []
+//        }
+  // next query each track and init with mates
+        
+//        let allTeamMatesIn = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).all()
+//
+        return allTracks
+        
+    }
 }
