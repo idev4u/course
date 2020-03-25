@@ -38,32 +38,15 @@ public func routes(_ router: Router) throws {
     // "/tracks/<trackname>/update/owner/<ownername>
     router.group("tracks", Track.parameter, "update" ) { group in
         group.get( "owner", TeamMateDbModel.parameter) { req -> Future<Response> in
-                //TrackIdentifier
-//            let track = try req.parameters.next(Track.self)
-//            let mate = try req.parameters.next(TeamMateDbModel.self)
-            
-//            return track.update(on: req).map { mate in
-//                return req.redirect(to: "/")
-//            }
+            //TrackIdentifier
             return try req.parameters.next(Track.self).flatMap { track in
                 return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
                     var updateTrack = track
                     var updateMate = mate
-                    let mateReferenzId = updateMate.assignedTrackId ?? 0
+                    let mateReferenzId = updateMate.assignedTrackId ?? 0 // if there is no track assigned this will 0
                     // delete referenz
-//                    let trackWhereUserIsAssgined = Track.find(mateReferenzId, on: req).map(to: Track.self){ trackWithMateReferenz in
-//                        var trackWithoutMateReferenz = trackWithMateReferenz
-//                        if trackWithMateReferenz?.ContextOwner?.id == mate.id {
-//                            trackWithoutMateReferenz?.ContextOwner = nil
-//                        }
-//                        if trackWithMateReferenz?.RotateInPerson?.id == mate.id {
-//                            trackWithoutMateReferenz?.RotateInPerson = nil
-//                        }
-//
-//                        trackWithoutMateReferenz?.save(on: req)
-//                        return trackWithMateReferenz ??
-//                    }
-                    // uf not 0
+                    
+                    // If the Trackreferenz is not 0, then delete the predecessor references
                     if mateReferenzId != 0 {
                         let trackWhereUserIsAssgined = Track.find(mateReferenzId, on: req)
                         _ = trackWhereUserIsAssgined.map(to: Track.self){ trackWithMateReferenz in
@@ -78,10 +61,8 @@ public func routes(_ router: Router) throws {
                             return trackWithoutMateReferenz!
                         }
                     }
-
                     
-
-                    //
+                    // update referenz
                     updateMate.assignedTrackId = updateTrack.id
                     updateMate.save(on: req)
                     updateTrack.ContextOwner = mate
@@ -91,56 +72,40 @@ public func routes(_ router: Router) throws {
                 }
                 
             }
-//                let trackname = try req.parameters.next(String.self)
-//                print("Log: trackname \(trackname)")
-////                print("Log: tracks \(tracks.debugDescription)")
-//                //array.filter {$0.eventID == id}.first?.added = value
-////                let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
-//
-//                // Load track from tracks array
-////                print("index of azure \(idx)")
-////                var tmpTrack = tracks[idx]
-//                //update Owner
-//                let NewOwner = try req.parameters.next(String.self)
-////                let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == NewOwner})
-////                tmpTrack.ContextOwner = datasource.allTeamMates.team[indxOfTeamMate!]
-//
-//                // Update new written track item
-////                tracks.remove(at: idx)
-////                tracks.insert(tmpTrack, at: idx)
-//
-////                print("Log: after update tracks \(tracks.debugDescription)")
-//
-//                // Return to main view
-//                return req.future().map() {
-//                    return req.redirect(to: "/")
-//                }
-            }
-        group.get("rotatein", String.parameter) { req -> Future<Response> in
-            //TrackIdentifier
-            let trackname = try req.parameters.next(String.self)
-            print("Log: trackname \(trackname)")
-//            print("Log: tracks \(tracks.debugDescription)")
-            //array.filter {$0.eventID == id}.first?.added = value
-//            let idx:Int = tracks.firstIndex(where: { $0.name == trackname})!
             
-            // Load track from tracks array
-//            print("index of azure \(idx)")
-//            var tmpTrack = tracks[idx]
-            //update Owner
-            let RotatIn = try req.parameters.next(String.self)
-//            let indxOfTeamMate = datasource.allTeamMates.team.firstIndex(where: {$0.name == RotatIn})
-//            tmpTrack.RotateInPerson = datasource.allTeamMates.team[indxOfTeamMate!]
-            
-            // Update new written track item
-//            tracks.remove(at: idx)
-//            tracks.insert(tmpTrack, at: idx)
-            
-//            print("Log: after update tracks \(tracks.debugDescription)")
-            
-            // Return to main view
-            return req.future().map() {
-                return req.redirect(to: "/")
+        }
+        group.get("rotatein", TeamMateDbModel.parameter) { req -> Future<Response> in
+            return try req.parameters.next(Track.self).flatMap { track in
+                return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
+                    var updateTrack = track
+                    var updateMate = mate
+                    let mateReferenzId = updateMate.assignedTrackId ?? 0 // if there is no track assigned this will 0
+                    // delete referenz
+                    
+                    // If the Trackreferenz is not 0, then delete the predecessor references
+                    if mateReferenzId != 0 {
+                        let trackWhereUserIsAssgined = Track.find(mateReferenzId, on: req)
+                        _ = trackWhereUserIsAssgined.map(to: Track.self){ trackWithMateReferenz in
+                            var trackWithoutMateReferenz = trackWithMateReferenz
+                            if trackWithMateReferenz?.ContextOwner?.id == mate.id {
+                                trackWithoutMateReferenz?.ContextOwner = nil
+                            }
+                            if trackWithMateReferenz?.RotateInPerson?.id == mate.id {
+                                trackWithoutMateReferenz?.RotateInPerson = nil
+                            }
+                            trackWithoutMateReferenz?.save(on: req)
+                            return trackWithoutMateReferenz!
+                        }
+                    }
+                    
+                    // update referenz
+                    updateMate.assignedTrackId = updateTrack.id
+                    updateMate.save(on: req)
+                    updateTrack.RotateInPerson = mate
+                    return updateTrack.update(on: req).map { mate in
+                        return req.redirect(to: "/")
+                    }
+                }
             }
         }
     }
