@@ -16,11 +16,12 @@ struct Board: Encodable {
 public func routes(_ router: Router) throws {
     // "It works" page
     let message = "Welcome to Course"
-    var datasource = TeamDataSource()
+//    var datasource = TeamDataSource()
     let tc = TrackController()
 //    var tracks = tc.tracksA()
     
     router.get { req -> Future<View> in
+//        let allTeamMatesIn = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).filter(\.assignedTrackId, .is, nil).all()
         let allTeamMatesIn = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).all()
         let allTeamMatesOut = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, true).all()
         // TDOD: Fetch tracks from db
@@ -47,7 +48,42 @@ public func routes(_ router: Router) throws {
             return try req.parameters.next(Track.self).flatMap { track in
                 return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
                     var updateTrack = track
-                    print(mate)
+                    var updateMate = mate
+                    let mateReferenzId = updateMate.assignedTrackId ?? 0
+                    // delete referenz
+//                    let trackWhereUserIsAssgined = Track.find(mateReferenzId, on: req).map(to: Track.self){ trackWithMateReferenz in
+//                        var trackWithoutMateReferenz = trackWithMateReferenz
+//                        if trackWithMateReferenz?.ContextOwner?.id == mate.id {
+//                            trackWithoutMateReferenz?.ContextOwner = nil
+//                        }
+//                        if trackWithMateReferenz?.RotateInPerson?.id == mate.id {
+//                            trackWithoutMateReferenz?.RotateInPerson = nil
+//                        }
+//
+//                        trackWithoutMateReferenz?.save(on: req)
+//                        return trackWithMateReferenz ??
+//                    }
+                    // uf not 0
+                    if mateReferenzId != 0 {
+                        let trackWhereUserIsAssgined = Track.find(mateReferenzId, on: req)
+                        _ = trackWhereUserIsAssgined.map(to: Track.self){ trackWithMateReferenz in
+                            var trackWithoutMateReferenz = trackWithMateReferenz
+                            if trackWithMateReferenz?.ContextOwner?.id == mate.id {
+                                trackWithoutMateReferenz?.ContextOwner = nil
+                            }
+                            if trackWithMateReferenz?.RotateInPerson?.id == mate.id {
+                                trackWithoutMateReferenz?.RotateInPerson = nil
+                            }
+                            trackWithoutMateReferenz?.save(on: req)
+                            return trackWithoutMateReferenz!
+                        }
+                    }
+
+                    
+
+                    //
+                    updateMate.assignedTrackId = updateTrack.id
+                    updateMate.save(on: req)
                     updateTrack.ContextOwner = mate
                     return updateTrack.update(on: req).map { mate in
                         return req.redirect(to: "/")
