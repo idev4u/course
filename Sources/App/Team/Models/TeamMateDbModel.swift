@@ -7,8 +7,17 @@
 
 import FluentPostgreSQL
 import Vapor
+import PostgreSQL
 
-struct TeamMateDbModel: PostgreSQLModel, Content, Migration, Parameter {
+
+
+struct TeamMateDbModel: Model, Content, Migration, Parameter {
+    static let idKey: IDKey = \.id
+    
+    typealias ID = Int
+    
+    typealias Database = PostgreSQLDatabase
+    
     var id: Int?
     var name: String
     var surename: String

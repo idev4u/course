@@ -8,7 +8,14 @@
 import FluentPostgreSQL
 import Vapor
 
-struct Track: PostgreSQLModel, Content, Migration, Parameter {
+typealias Database = PostgreSQLDatabase
+
+struct Track: Model, Content, Migration, Parameter {
+    static let idKey: IDKey = \.id
+    
+    typealias ID = Int
+    
+    typealias Database = PostgreSQLDatabase
     var id: Int?
     var ContextOwner:TeamMateDbModel?
     var RotateInPerson:TeamMateDbModel?
