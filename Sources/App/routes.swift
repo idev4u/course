@@ -93,7 +93,7 @@ public func routes(_ router: Router) throws {
                     // delete referenz
                     
                     // If the Trackreferenz is not 0, then delete the predecessor references
-                    if mateReferenzId != 0 {
+                    if mateReferenzId != 0 && mateReferenzId != updateTrack.id {
                         let trackWhereUserIsAssgined = Track.find(mateReferenzId, on: req)
                         _ = trackWhereUserIsAssgined.map(to: Track.self){ trackWithMateReferenz in
                             var trackWithoutMateReferenz = trackWithMateReferenz
@@ -107,7 +107,15 @@ public func routes(_ router: Router) throws {
                             return trackWithoutMateReferenz!
                         }
                     }
-                    
+                    // remove rotate in referenz, cause mate is now owenr for the same track
+                    if updateMate.assignedTrackId == updateTrack.id {
+                        print("huhu")
+                        updateTrack.RotateInPerson = updateMate
+                        if updateTrack.ContextOwner?.id == updateMate.id {
+                            print("huhu take the ownership")
+                            updateTrack.ContextOwner = nil
+                        }
+                    }
                     // update referenz
                     updateMate.assignedTrackId = updateTrack.id
                     updateMate.save(on: req)
