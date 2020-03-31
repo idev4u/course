@@ -25,6 +25,14 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     // Register Database
     try services.register(FluentPostgreSQLProvider())
     
+    let dburl:String = ProcessInfo.processInfo.environment["DATABASE_URL"] ?? ""
+    
+    if !(dburl .isEmpty) {
+        let postgresqlConfig:PostgreSQLDatabaseConfig = PostgreSQLDatabaseConfig(url: dburl)! //
+        services.register(postgresqlConfig)
+    }
+    
+    
     // Migration for Database
     var migrations = MigrationConfig()
     migrations.add(model: TeamMateDbModel.self, database: .psql)
