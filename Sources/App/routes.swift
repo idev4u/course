@@ -103,7 +103,8 @@ public func routes(_ router: Router) throws {
                             if trackWithMateReferenz?.RotateInPerson?.id == mate.id {
                                 trackWithoutMateReferenz?.RotateInPerson = nil
                             }
-                            trackWithoutMateReferenz?.save(on: req)
+                            let result = trackWithoutMateReferenz?.save(on: req)
+                            print(result.debugDescription)
                             return trackWithoutMateReferenz!
                         }
                     }
