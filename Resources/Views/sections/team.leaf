@@ -4,17 +4,17 @@
         
         <div class="col-12 col-md-6 col-xl-4">
             <div class="d-flex p-2">
-                #for(teammates in unassigned.team) {
+                #for(unaasignMate in unassigned.team) {
                 <div class="card d-flex flex-column align-items-start">
-                    <img class="img-thumbnail" src="data:image/png;base64, #(unassigned.image)" alt="Card image cap">
+                    <img class="img-thumbnail" src="data:image/png;base64, #(unaasignMate.image)" alt="Card image cap">
                         <div class="card-body">
-                            <h7 class="card-title">#(unassigned.name) #(unassigned.surename)
+                            <h7 class="card-title">#(unaasignMate.name) #(unaasignMate.surename)
                             </h7>
                         </div>
                 </div>
                 }
             </div>
-            <div class="label w-100 text-center">unasinged</div>
+            <div class="label w-100 text-center">Unassigned</div>
         </div>
         <!-- out -->
         <div class="col-12 col-md-6 col-xl-4">
@@ -33,7 +33,7 @@
             </div>
             <!-- dropdown rotatein -->
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">out
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Move out
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     #for(teammates in team.team) {
@@ -42,7 +42,7 @@
                     </div>
                 </div>
             <!-- dropdown rotatein -->
-            <div class="label w-100 text-center">out</div>
+            <div class="label w-100 text-center">Out</div>
         </div>
     </div>
 </div>

@@ -26,13 +26,13 @@ public func routes(_ router: Router) throws {
         let allTeamMates = TeamMateDbModel.query(on: req).all()
         let allTeamMatesOut = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, true).all()
         // TDOD: Fetch tracks from db
-        let unassigned = Team(team: unassignedMates)
+        let teamUnassigned = Team(team: unassignedMates)
         let teamIn = Team(team: allTeamMates)
         let teamOut = Team(team: allTeamMatesOut)
 //        let mytracks = tc.tracksAsync(req: req)
         let mytracksFromDB = tc.tracksFromDB(req: req)
         print(mytracksFromDB)
-        let board = Board(message: message,team: teamIn, unassigned: unassigned , teamout: teamOut, tracks: mytracksFromDB)
+        let board = Board(message: message,team: teamIn, unassigned: teamUnassigned , teamout: teamOut, tracks: mytracksFromDB)
         return try req.view().render("main", board )
     }
     // tracks
