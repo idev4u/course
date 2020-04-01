@@ -46,6 +46,9 @@ public func routes(_ router: Router) throws {
                     var updateTrack = track
                     var updateMate = mate
                     updateMate.isOut = false
+                    var oldContextOnwer = track.ContextOwner
+                    oldContextOnwer?.assignedTrackId = nil
+                    oldContextOnwer?.save(on: req)
                     let mateReferenzId = updateMate.assignedTrackId ?? 0 // if there is no track assigned this will 0
                     // delete referenz
                     
@@ -93,6 +96,10 @@ public func routes(_ router: Router) throws {
                     var updateTrack = track
                     var updateMate = mate
                     updateMate.isOut = false
+                    var oldRotateIn = track.RotateInPerson
+                    oldRotateIn?.assignedTrackId = nil
+                    oldRotateIn?.save(on: req)
+                    
                     let mateReferenzId = updateMate.assignedTrackId ?? 0 // if there is no track assigned this will 0
                     // delete referenz
                     
@@ -141,8 +148,7 @@ public func routes(_ router: Router) throws {
             var updateMate = mate
             updateMate.isOut = true
             let trackReferenzId = updateMate.assignedTrackId ?? 0 // if there is no track assigned this will 0
-            // delete referenz
-            
+                        
             // If the Trackreferenz is not 0, then delete the predecessor references
             if trackReferenzId != 0 {
                 let trackWhereUserIsAssgined = Track.find(trackReferenzId, on: req)
