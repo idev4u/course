@@ -6,7 +6,13 @@
             <div class="label w-100 text-center">#(track.name)</div>
             <div class="d-flex p-2">
                 <div class="card d-flex flex-column align-items-start" style="width: 9rem;">
-                    <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                    <!--  check if the place holder image is needed -->
+                    #if(track.ContextOwner.image) {
+                        <img class="img-thumbnail" src="data:image/png;base64, #(track.ContextOwner.image)" alt="Card image cap">
+                    } else {
+                        <img class="img-thumbnail" src="images/placeholder-profile.jpg" alt="Card image cap">
+                    }
+
                         <div class="card-body">
                             <h5 class="card-title">#(track.ContextOwner.name) #(track.ContextOwner.surename)
                             </h5>
@@ -25,7 +31,12 @@
                         </div>
                 </div>
                 <div class="card d-flex flex-column align-items-start" style="width: 9rem;">
-                    <img class="img-thumbnail" src="images/it-works.png" alt="Card image cap">
+                    <!--  check if the place holder image is needed -->
+                    #if(track.RotateInPerson.image) {
+                        <img class="img-thumbnail" src="data:image/png;base64, #(track.RotateInPerson.image)" alt="Card image cap">
+                    } else {
+                        <img class="img-thumbnail" src="images/placeholder-profile.jpg" alt="Card image cap">
+                    }
                         <div class="card-body">
                             <h5 class="card-title">#(track.RotateInPerson.name) #(track.RotateInPerson.surename)
                             </h5>
