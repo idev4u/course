@@ -4,11 +4,11 @@
         
         <div class="col-12 col-md-6 col-xl-4">
             <div class="d-flex p-2">
-                #for(teammates in team.team) {
+                #for(teammates in unassigned.team) {
                 <div class="card d-flex flex-column align-items-start">
-                    <img class="img-thumbnail" src="data:image/png;base64, #(teammates.image)" alt="Card image cap">
+                    <img class="img-thumbnail" src="data:image/png;base64, #(unassigned.image)" alt="Card image cap">
                         <div class="card-body">
-                            <h7 class="card-title">#(teammates.name) #(teammates.surename)
+                            <h7 class="card-title">#(unassigned.name) #(unassigned.surename)
                             </h7>
                         </div>
                 </div>

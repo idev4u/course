@@ -4,6 +4,7 @@ import Fluent
 struct Board: Encodable {
     let message: String
     let team: Team
+    let unassigned: Team
     let teamout: Team
     
 //    let tracks: Tracks
@@ -21,16 +22,17 @@ public func routes(_ router: Router) throws {
 //    var tracks = tc.tracksA()
     
     router.get { req -> Future<View> in
-//        let allTeamMatesIn = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).filter(\.assignedTrackId, .is, nil).all()
-        let allTeamMatesIn = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).all()
+        let unassignedMates = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).filter(\.assignedTrackId, .is, nil).all()
+        let allTeamMates = TeamMateDbModel.query(on: req).all()
         let allTeamMatesOut = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, true).all()
         // TDOD: Fetch tracks from db
-        let teamIn = Team(team: allTeamMatesIn)
+        let unassigned = Team(team: unassignedMates)
+        let teamIn = Team(team: allTeamMates)
         let teamOut = Team(team: allTeamMatesOut)
 //        let mytracks = tc.tracksAsync(req: req)
         let mytracksFromDB = tc.tracksFromDB(req: req)
         print(mytracksFromDB)
-        let board = Board(message: message, team: teamIn , teamout: teamOut, tracks: mytracksFromDB)
+        let board = Board(message: message,team: teamIn, unassigned: unassigned , teamout: teamOut, tracks: mytracksFromDB)
         return try req.view().render("main", board )
     }
     // tracks
@@ -43,6 +45,7 @@ public func routes(_ router: Router) throws {
                 return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
                     var updateTrack = track
                     var updateMate = mate
+                    updateMate.isOut = false
                     let mateReferenzId = updateMate.assignedTrackId ?? 0 // if there is no track assigned this will 0
                     // delete referenz
                     
@@ -89,6 +92,7 @@ public func routes(_ router: Router) throws {
                 return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
                     var updateTrack = track
                     var updateMate = mate
+                    updateMate.isOut = false
                     let mateReferenzId = updateMate.assignedTrackId ?? 0 // if there is no track assigned this will 0
                     // delete referenz
                     
@@ -132,9 +136,29 @@ public func routes(_ router: Router) throws {
     // out view
     router.get("team", "mate", TeamMateDbModel.parameter, "out") { req -> Future<Response> in
         // mark the mate that he is out
+        // TDOO: Remove Trackid
         return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
             var updateMate = mate
             updateMate.isOut = true
+            let trackReferenzId = updateMate.assignedTrackId ?? 0 // if there is no track assigned this will 0
+            // delete referenz
+            
+            // If the Trackreferenz is not 0, then delete the predecessor references
+            if trackReferenzId != 0 {
+                let trackWhereUserIsAssgined = Track.find(trackReferenzId, on: req)
+                _ = trackWhereUserIsAssgined.map(to: Track.self){ trackWithMateReferenz in
+                    var trackWithoutMateReferenz = trackWithMateReferenz
+                    if trackWithMateReferenz?.ContextOwner?.id == mate.id {
+                        trackWithoutMateReferenz?.ContextOwner = nil
+                    }
+                    if trackWithMateReferenz?.RotateInPerson?.id == mate.id {
+                        trackWithoutMateReferenz?.RotateInPerson = nil
+                    }
+                    let result = trackWithoutMateReferenz?.save(on: req)
+                    print(result.debugDescription)
+                    return trackWithoutMateReferenz!
+                }
+            }
             return updateMate.update(on: req).map { mate in
                 return req.redirect(to: "/")
             }
