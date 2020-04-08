@@ -27,6 +27,8 @@ jobs:
       run: |
         echo Deploy to heroku
         echo test, and deploy your project.
+        echo "install bulds plug in"
+        heroku plugins:install heroku-builds
         echo heroku builds
         echo $(heroku builds:info | grep Status | tr -d ' ' | cut -d ':' -f 2)
     ## Deploy to heroku
