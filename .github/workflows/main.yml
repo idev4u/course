@@ -31,3 +31,15 @@ jobs:
       run: |
         echo Add other actions to build,
         echo test, and deploy your project.
+## Deploy to heroku
+- name: "Course to heroku"
+  uses: AkhileshNS/heroku-deploy@v3.0.2
+  with:
+    # This will be used for authentication. You can find it in your heroku homepage account settings
+    heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+    # Email that you use with heroku
+    heroku_email: ${{secrets.HEROKU_Email}}
+    # The appname to use for deploying/updating
+    heroku_app_name: "course-pair"
+    # An optional buildpack to use when creating the heroku application
+    buildpack: "https://github.com/vapor-community/heroku-buildpack.git"
