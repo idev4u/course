@@ -1,3 +1,5 @@
+![CI](https://github.com/idev4u/course/workflows/CI/badge.svg?branch=master)
+
 # Course
 
 hello this is course a pairing borad inspired by pairup. At time I wrote course pair up wasn't  open source.
