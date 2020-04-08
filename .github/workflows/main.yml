@@ -26,9 +26,7 @@ jobs:
     - name: Print deployment information
       run: |
         echo Deploy to heroku
-        echo test, and deploy your project.
-        echo "check if already a app is running"
-        heroku ps:wait -a course-pair
+        
     ## Deploy to heroku
     - name: "Course to heroku"
       uses: AkhileshNS/heroku-deploy@v3.0.2
