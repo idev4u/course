@@ -8,9 +8,9 @@
                 <div class="card d-flex flex-column align-items-start" style="width: 9rem;">
                     <!--  check if the place holder image is needed -->
                     #if(track.ContextOwner.image) {
-                        <img class="img-thumbnail" src="data:image/png;base64, #(track.ContextOwner.image)" alt="Card image cap">
+                        <img class="img-thumbnail" src="data:image/png;base64, #(track.ContextOwner.image)" alt="Card image cap" style="height:180px; width:100%; object-fit: cover;">
                     } else {
-                        <img class="img-thumbnail" src="images/placeholder-profile.jpg" alt="Card image cap">
+                        <img class="img-thumbnail" src="images/placeholder-profile.jpg" alt="Card image cap"  style="height:180px; width:100%; object-fit: cover;">
                     }
 
                         <div class="card-body">
@@ -33,9 +33,9 @@
                 <div class="card d-flex flex-column align-items-start" style="width: 9rem;">
                     <!--  check if the place holder image is needed -->
                     #if(track.RotateInPerson.image) {
-                        <img class="img-thumbnail" src="data:image/png;base64, #(track.RotateInPerson.image)" alt="Card image cap">
+                        <img class="img-thumbnail" src="data:image/png;base64, #(track.RotateInPerson.image)" alt="Card image cap" style="height:180px; width:100%; object-fit: cover;">
                     } else {
-                        <img class="img-thumbnail" src="images/placeholder-profile.jpg" alt="Card image cap">
+                        <img class="img-thumbnail" src="images/placeholder-profile.jpg" alt="Card image cap" style="height:180px; width:100%; object-fit: cover;">
                     }
                         <div class="card-body">
                             <h5 class="card-title">#(track.RotateInPerson.name) #(track.RotateInPerson.surename)
