@@ -11,6 +11,7 @@ margin: 0;
         <title>Course</title>
     </head>
     <body>
+        #embed("common/navbar") 
         #embed("common/headline")   
         #embed("sections/team")
         #embed("sections/pairs")

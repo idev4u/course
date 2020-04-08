@@ -20,7 +20,12 @@
       <div class="container">
         <h1 class="display-6">Manage <b>Team Members
         </h1>
-        <p class="lead"><a href="/manage/team/mate" class="btn  btn-primary float-right"><span>Add Mate</span></a></p>
+        <p class="lead">
+        <a href="/manage/team/mate" class="btn btn-primary float-left">
+        <span>Add Mate</span>
+        </a>
+        <a href="/" class="btn btn-secondary float-right"><span>Back</span></a>
+        </p>
        </div>
     </div>
                 <table class="table">
