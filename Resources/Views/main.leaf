@@ -12,7 +12,7 @@ margin: 0;
     </head>
     <body>
         #embed("common/navbar") 
-        #embed("common/headline")   
+        <!-- #embed("common/headline")  -->
         #embed("sections/team")
         #embed("sections/pairs")
         #embed("sections/parkinglot")

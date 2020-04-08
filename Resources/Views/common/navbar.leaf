@@ -13,5 +13,9 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <div class="bg-dark p-2">
+      <h5 class="text-white h4">#(message)</h5>
+    </div>
+    <div></div>
   </nav>
 </div>
