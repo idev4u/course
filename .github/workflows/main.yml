@@ -27,7 +27,8 @@ jobs:
       run: |
         echo Deploy to heroku
         echo test, and deploy your project.
-        echo $(which heroku)
+        echo heroku builds
+        echo $(heroku builds:info | grep Status | tr -d ' ' | cut -d ':' -f 2)
     ## Deploy to heroku
     - name: "Course to heroku"
       uses: AkhileshNS/heroku-deploy@v3.0.2
