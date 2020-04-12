@@ -9,13 +9,13 @@
       </div>
     </div>
   </div>
-  <nav class="navbar navbar-dark bg-dark">
+  <nav class="navbar navbar-light bg-light">
+    <div></div>
+    <div class="bg-light p-1">
+      <h3 class="text-muted h3 text-center" style="font-family: 'Pacifico', cursive;">#(message)</h3>
+    </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="bg-dark p-2">
-      <h5 class="text-white h4">#(message)</h5>
-    </div>
-    <div></div>
   </nav>
 </div>

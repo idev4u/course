@@ -16,7 +16,7 @@ struct Board: Encodable {
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
     // "It works" page
-    let message = "Welcome to Course"
+    let message = "Course"
 //    var datasource = TeamDataSource()
     let tc = TrackController()
 //    var tracks = tc.tracksA()
