@@ -3,6 +3,7 @@
     <div class="row">
 
         <div class="col-12 col-md-6 col-xl-4">
+            <p class="h7" style="margin-left: 2rem;">Unassigned</p>
             <div class="d-flex p-2">
                 #for(unaasignMate in unassigned.team) {
                 <div class="card d-flex flex-column align-items-start" style="width: 9rem; overflow: hidden;">
@@ -27,20 +28,29 @@
                 }
 
             </div>
-            <div class="label w-100 text-center">Unassigned</div>
+            <!-- div class="label w-100 text-center">Unassigned</div-->
         </div>
         <!-- out -->
         <div class="col-12 col-md-8">
-
+            <div class="h7" style="margin-left: 2rem;">Out</div>
             <div class="d-flex p-2">
                 #for(teammates in teamout.team) {
-                <div class="card d-flex flex-column align-items-start" style="width: 10rem; ">
+                <div class="card d-flex flex-column align-items-start" style="width: 9rem; ">
                     <img class="img-thumbnail" src="data:image/png;base64, #(teammates.image)" alt="Card image cap" style="height:180px; width:100%; object-fit: cover;">
                         <div class="card-body">
                          <h7 class="card-title">
                              #(teammates.name) #(teammates.surename)
                          </h7>
                         </div>
+                </div>
+                }
+                #if(count(teamout.team) == 0) {
+                 <div class="card d-flex flex-column align-items-start" style="width: 9rem; overflow: hidden;">
+                    <img class="img-thumbnail" src="images/placeholder-profile.jpg" alt="Card image cap" style="height:180px; width:100%; object-fit: cover;">
+                    <div class="card-body">
+                        <h7 class="card-title">All in
+                        </h7>
+                    </div>
                 </div>
                 }
             </div>
@@ -55,7 +65,7 @@
                     </div>
                 </div>
             <!-- dropdown rotatein -->
-            <div class="label w-100 text-center">Out</div>
+            <!--div class="label w-100 text-center">Out</div-->
         </div>
     </div>
 </div>
