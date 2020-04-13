@@ -11,12 +11,16 @@ margin: 0;
         <title>Course</title>
     </head>
     <body>
-        #embed("common/navbar") 
+        #embed("common/navbar")
         <!-- #embed("common/headline")  -->
         #embed("sections/team")
         #embed("sections/pairs")
         #embed("sections/parkinglot")
         #embed("common/scripts/layout-scripts")
+        <footer class="footer "style="margin-top: 5rem;">
+        <div class="container">
+            <span class="text-muted"><p style="color: white;"> placaholder muss noch entfernt werden</p></span>
+        </div>
+        </footer>
     </body>
-    
 </html>
