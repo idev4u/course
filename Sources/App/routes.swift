@@ -259,8 +259,8 @@ public func routes(_ router: Router) throws {
         }
         // track/#(mate.id)/delete
         group.post("topic", ParkingLotTopic.parameter, "delete"){ req -> Future<Response> in
-            return try req.parameters.next(Track.self).flatMap { track in
-                return track.delete(on: req).map { _ in
+            return try req.parameters.next(ParkingLotTopic.self).flatMap { topic in
+                return topic.delete(on: req).map { _ in
                     return req.redirect(to: "/")
                 }
             }

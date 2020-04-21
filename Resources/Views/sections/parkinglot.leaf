@@ -24,14 +24,21 @@
           #for(topic in parkingLotTopcis) {
           <li class="list-group-item">
             <div class="form-row">
-              <form class="form-inline col-md-12" method="POST" action="/parkinglot/items/#(item.id)/delete">
-                <div class="form-group col-md-10
-                  mr-auto">
-                  <label>#(topic.topic)</label>
+              <form class="form-inline col-md-12" method="POST" action="/parkinglot/topics/topic/#(topic.id)/delete">
+
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <div class="form-group col-md-10 mr-auto">
+                  <label class="form-check-label" for="defaultCheck1">
+                  #(topic.topic)
+                    </label>
                 </div>
-                <input class="btn btn-danger
-                  float-right" type="submit" value="delete" />
-              </form>
+                <button type="submit" class="close" aria-label="Close" value="delete">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <!--
+                <input class="btn btn-danger float-right" type="submit" value="delete" />
+                -->
+                </form>
             </div>
           </li>
           }
