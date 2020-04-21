@@ -6,11 +6,8 @@ struct Board: Encodable {
     let team: Team
     let unassigned: Team
     let teamout: Team
-    
-//    let tracks: Tracks
     let tracks: Future<[Track]>
-//    let tracks: Future<[String]>
-    
+    let parkingLotTopcis: Future<[ParkingLotTopic]>
 }
 
 /// Register your application's routes here.
@@ -22,17 +19,21 @@ public func routes(_ router: Router) throws {
 //    var tracks = tc.tracksA()
     
     router.get { req -> Future<View> in
-        let unassignedMates = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).filter(\.assignedTrackId, .is, nil).all()
+        
+        //Fetch mates from DB
         let allTeamMates = TeamMateDbModel.query(on: req).all()
         let allTeamMatesOut = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, true).all()
-        // TDOD: Fetch tracks from db
+        let unassignedMates = TeamMateDbModel.query(on: req).filter(\.isOut, .equal, false).filter(\.assignedTrackId, .is, nil).all()
+        // transfer to View model
         let teamUnassigned = Team(team: unassignedMates)
         let teamIn = Team(team: allTeamMates)
         let teamOut = Team(team: allTeamMatesOut)
-//        let mytracks = tc.tracksAsync(req: req)
-        let mytracksFromDB = tc.tracksFromDB(req: req)
-        print(mytracksFromDB)
-        let board = Board(message: message,team: teamIn, unassigned: teamUnassigned , teamout: teamOut, tracks: mytracksFromDB)
+        // fetch Tracks
+        let tracks = tc.tracksFromDB(req: req)
+        // fetch Parking Lot Topics
+        let parkingLotTopics = ParkingLotTopic.query(on: req).all()
+        // prepare View Rendere Model
+        let board = Board(message: message,team: teamIn, unassigned: teamUnassigned , teamout: teamOut, tracks: tracks, parkingLotTopcis: parkingLotTopics)
         return try req.view().render("main", board )
     }
     // tracks
@@ -233,6 +234,34 @@ public func routes(_ router: Router) throws {
             return try req.parameters.next(Track.self).flatMap { track in
                 return track.delete(on: req).map { _ in
                     return req.redirect(to: "/manage/tracks")
+                }
+            }
+        }
+    }
+    // Parking Lot
+    router.group("parkinglot","topics") {group in
+//        group.get() { req -> Future<View> in
+//            let allTracks = ParkingLotTopic.query(on: req).all()
+//            return allTracks.flatMap { track in
+//                let tracks = ["tracklist": track]
+//                return try req.view().render("pages/manage/tracks/tracks.leaf", tracks)
+//            }
+//
+//        }
+        group.post("topic","add"){req -> Future<Response> in
+            return try req.content.decode(ParkingLotTopic.self).map(to: Response.self) { topic in
+                print(topic.topic!)
+                let didCreateTrack = topic.create(on: req)
+                print(didCreateTrack)
+                return req.redirect(to: "/")
+            }
+
+        }
+        // track/#(mate.id)/delete
+        group.post("topic", ParkingLotTopic.parameter, "delete"){ req -> Future<Response> in
+            return try req.parameters.next(Track.self).flatMap { track in
+                return track.delete(on: req).map { _ in
+                    return req.redirect(to: "/")
                 }
             }
         }

@@ -37,5 +37,6 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     var migrations = MigrationConfig()
     migrations.add(model: TeamMateDbModel.self, database: .psql)
     migrations.add(model: Track.self, database: .psql)
+    migrations.add(model: ParkingLotTopic.self, database: .psql)
     services.register(migrations)
 }

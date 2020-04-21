@@ -9,8 +9,6 @@ import FluentPostgreSQL
 import Vapor
 import PostgreSQL
 
-
-
 struct TeamMateDbModel: Model, Content, Migration, Parameter {
     static let idKey: IDKey = \.id
     

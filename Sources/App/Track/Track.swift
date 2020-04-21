@@ -8,8 +8,6 @@
 import FluentPostgreSQL
 import Vapor
 
-typealias Database = PostgreSQLDatabase
-
 struct Track: Model, Content, Migration, Parameter {
     static let idKey: IDKey = \.id
     
