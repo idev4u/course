@@ -16,5 +16,5 @@ struct ParkingLotTopic: Model, Content, Migration, Parameter {
     typealias Database = PostgreSQLDatabase
     var id: Int?
     var topic: String?
-    var state: Bool?
+    var state: Bool? = false
 }

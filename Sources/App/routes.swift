@@ -251,13 +251,37 @@ public func routes(_ router: Router) throws {
         group.post("topic","add"){req -> Future<Response> in
             return try req.content.decode(ParkingLotTopic.self).map(to: Response.self) { topic in
                 print(topic.topic!)
-                let didCreateTrack = topic.create(on: req)
+                var newTopic = topic
+                newTopic.state = false
+                let didCreateTrack = newTopic.create(on: req)
                 print(didCreateTrack)
                 return req.redirect(to: "/")
             }
 
         }
-        // track/#(mate.id)/delete
+        group.post("topic", ParkingLotTopic.parameter, "update"){ req -> Future<Response> in
+//            return try req.content.decode(ParkingLotTopic.self).map(to: Response.self) { topic in
+//                var updateTopic = topic
+//                if topic.state! {
+//                    updateTopic.state = false
+//                } else {
+//                    updateTopic.state = true
+//                }
+//                return req.redirect(to: "/")
+//            }
+            return try req.parameters.next(ParkingLotTopic.self).flatMap { topic in
+                var updateTopic = topic
+                if topic.state! {
+                    updateTopic.state = false
+                } else {
+                    updateTopic.state = true
+                }
+                return updateTopic.update(on: req).map { _ in
+                    return req.redirect(to: "/")
+                }
+            }
+        }
+
         group.post("topic", ParkingLotTopic.parameter, "delete"){ req -> Future<Response> in
             return try req.parameters.next(ParkingLotTopic.self).flatMap { topic in
                 return topic.delete(on: req).map { _ in
