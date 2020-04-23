@@ -31,7 +31,7 @@ public func routes(_ router: Router) throws {
         // fetch Tracks
         let tracks = tc.tracksFromDB(req: req)
         // fetch Parking Lot Topics
-        let parkingLotTopics = ParkingLotTopic.query(on: req).all()
+        let parkingLotTopics = ParkingLotTopic.query(on: req).sort(\.id, .ascending).all()
         // prepare View Rendere Model
         let board = Board(message: message,team: teamIn, unassigned: teamUnassigned , teamout: teamOut, tracks: tracks, parkingLotTopcis: parkingLotTopics)
         return try req.view().render("main", board )
