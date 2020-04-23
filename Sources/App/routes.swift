@@ -240,14 +240,7 @@ public func routes(_ router: Router) throws {
     }
     // Parking Lot
     router.group("parkinglot","topics") {group in
-//        group.get() { req -> Future<View> in
-//            let allTracks = ParkingLotTopic.query(on: req).all()
-//            return allTracks.flatMap { track in
-//                let tracks = ["tracklist": track]
-//                return try req.view().render("pages/manage/tracks/tracks.leaf", tracks)
-//            }
-//
-//        }
+
         group.post("topic","add"){req -> Future<Response> in
             return try req.content.decode(ParkingLotTopic.self).map(to: Response.self) { topic in
                 print(topic.topic!)
@@ -255,20 +248,11 @@ public func routes(_ router: Router) throws {
                 newTopic.state = false
                 let didCreateTrack = newTopic.create(on: req)
                 print(didCreateTrack)
-                return req.redirect(to: "/")
+                return req.redirect(to: "/#parkinglot")
             }
 
         }
         group.post("topic", ParkingLotTopic.parameter, "update"){ req -> Future<Response> in
-//            return try req.content.decode(ParkingLotTopic.self).map(to: Response.self) { topic in
-//                var updateTopic = topic
-//                if topic.state! {
-//                    updateTopic.state = false
-//                } else {
-//                    updateTopic.state = true
-//                }
-//                return req.redirect(to: "/")
-//            }
             return try req.parameters.next(ParkingLotTopic.self).flatMap { topic in
                 var updateTopic = topic
                 if topic.state! {
@@ -277,7 +261,7 @@ public func routes(_ router: Router) throws {
                     updateTopic.state = true
                 }
                 return updateTopic.update(on: req).map { _ in
-                    return req.redirect(to: "/")
+                    return req.redirect(to: "/#parkinglot")
                 }
             }
         }
@@ -285,7 +269,7 @@ public func routes(_ router: Router) throws {
         group.post("topic", ParkingLotTopic.parameter, "delete"){ req -> Future<Response> in
             return try req.parameters.next(ParkingLotTopic.self).flatMap { topic in
                 return topic.delete(on: req).map { _ in
-                    return req.redirect(to: "/")
+                    return req.redirect(to: "/#parkinglot")
                 }
             }
         }
