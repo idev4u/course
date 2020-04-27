@@ -84,7 +84,7 @@ public func routes(_ router: Router) throws {
                     updateMate.save(on: req)
                     updateTrack.ContextOwner = updateMate
                     return updateTrack.update(on: req).map { mate in
-                        return req.redirect(to: "/")
+                        return req.redirect(to: "/#pairs")
                     }
                 }
                 
@@ -134,7 +134,7 @@ public func routes(_ router: Router) throws {
                     updateMate.save(on: req)
                     updateTrack.RotateInPerson = mate
                     return updateTrack.update(on: req).map { mate in
-                        return req.redirect(to: "/")
+                        return req.redirect(to: "/#pairs")
                     }
                 }
             }

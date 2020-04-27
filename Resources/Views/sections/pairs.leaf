@@ -1,5 +1,10 @@
-<div class="container">
-<div><h2>Pairs</h2></div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h2><a id="pairs">Pairs</a></h2>
+      <div class="border-top my-1"></div>
+    </div>
+  </div>
   <div class="row">
   #for(track in tracks) {
     <div class="col-12 col-md-6 col-xl-4">
@@ -23,7 +28,7 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 #for(teammates in team.team) {
-                                  <a class="update owner" href="/tracks/#(track.id)/update/owner/#(teammates.id)">#(teammates.name)</a>
+                                  <a class="dropdown-item" href="/tracks/#(track.id)/update/owner/#(teammates.id)">#(teammates.name) #(teammates.surename) </a>
                                 }
                               </div>
                             </div>
@@ -47,14 +52,14 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 #for(teammates in team.team) {
-                                <a class="update owner" href="/tracks/#(track.id)/update/rotatein/#(teammates.id)">#(teammates.name)</a>
+                                <a class="dropdown-item" href="/tracks/#(track.id)/update/rotatein/#(teammates.id)">#(teammates.name) #(teammates.surename)</a>
                                 }
-                              </div>          
+                              </div>
                             </div>
                             <!-- dropdown rotatein-->
                         </div>
                 </div>
-            </div>              
+            </div>
 <!--            <div class="label w-100 text-center">#(track.name)</div>-->
         </div>
             }

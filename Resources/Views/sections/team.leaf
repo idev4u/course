@@ -1,5 +1,10 @@
-<div class="container" style="padding: 5px;">
-    <div><h2>Team</h2></div>
+<div class="container mt-4">
+    <div class="row">
+      <div class="col">
+        <h2><a id="team">Team</a></h2>
+        <div class="border-top my-1"></div>
+      </div>
+    </div>
     <div class="row">
 
         <div class="col-12 col-md-6 col-xl-4">
@@ -60,7 +65,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     #for(teammates in team.team) {
-                    <a class="update owner" href="/team/mate/#(teammates.id)/out ">#(teammates.name)</a>
+                    <a class="dropdown-item" href="/team/mate/#(teammates.id)/out ">#(teammates.name) #(teammates.surename)</a>
                     }
                     </div>
                 </div>

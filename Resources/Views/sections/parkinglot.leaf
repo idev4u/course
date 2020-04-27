@@ -1,7 +1,8 @@
-<div class="container">
+<div class="container mt-5">
   <div class="row">
     <div class="col">
       <h2><a id="parkinglot">Parkinglot</a></h2>
+      <div class="border-top my-1"></div>
     </div>
   </div>
   <div class="container mt-3">
