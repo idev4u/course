@@ -1,26 +1,28 @@
 <div class="container">
-  <div>
-    <h2><a id="parkinglot">Parkinglot</a></h2>
+  <div class="row">
+    <div class="col">
+      <h2><a id="parkinglot">Parkinglot</a></h2>
+    </div>
   </div>
   <div class="container mt-3">
     <div class="row">
+
+      <div class="form-group col-md-10" style="margin-bottom:1rem;">
+        <div class="form-row float-md-right">
+          <form class="form-inline" method="POST" action="/parkinglot/topics/delete">
+            <button type="submit" class="close" style="font-size: 1rem;">
+              <span aria-hidden="true">Reset All<i class="fas fa-eraser"></i></span>
+            </button>
+          </form>
+        </div>
+
+
+
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-10">
         <ul class="list-group">
-          <!-- anfang -->
-          <!--
-          <li class="list-group-item">
-            <div class="form-row">
-              <form class="form-inline col-md-12" action="/">
-                <div class="form-group col-md-10
-                  mr-auto">
-                  <label>Example Parkinglot item</label>
-                </div>
-                <input class="btn btn-danger float-right" type="submit" value="delete" />
-              </form>
-            </div>
-          </li>
-            -->
-          <!-- end-->
           #for(topic in parkingLotTopcis) {
           <li class="list-group-item">
             <div class="form-row">
@@ -30,11 +32,9 @@
                   <!-- add if state is tru or false diable the whole line-->
                   #if(topic.state) {
                   <input checked="checked" class="form-check-input" type="checkbox" value="#(topic.state)" id="defaultCheck1" onChange="this.form.submit();" disabled>
-                  <label class="form-check-label" for="defaultCheck1" disabled><del>#(topic.topic)</del></label>
-                  } else {
+                  <label class="form-check-label" for="defaultCheck1" disabled><del>#(topic.topic)</del></label> } else {
                   <input class="form-check-input" type="checkbox" value="#(topic.state)" id="defaultCheck1" onChange="this.form.submit();">
-                  <label class="form-check-label" for="defaultCheck1">#(topic.topic)</label>
-                  }
+                  <label class="form-check-label" for="defaultCheck1">#(topic.topic)</label> }
                 </form>
               </div>
               <div class="form-group" style="margin-bottom: unset;">
@@ -57,7 +57,7 @@
     <div class="form-row">
       <form class="form-inline col-md-12" method="POST" action="/parkinglot/topics/topic/add" enctype="multipart/form-data">
         <div class="form-group">
-          <!-- <label for="inputTrackName">Trackname</label> -->
+          <!-- <label for="inputTrackName ">Trackname</label> -->
           <div>
             <input type="text" name="topic" class="form-control" id="inputParkinglot" placeholder="Parkinglot item">
             <button type="submit" name="action" class="btn btn-primary">add</button>

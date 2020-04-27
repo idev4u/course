@@ -273,6 +273,12 @@ public func routes(_ router: Router) throws {
                 }
             }
         }
+        group.post("delete"){ req -> Future<Response> in
+            return ParkingLotTopic.query(on: req).delete().map { _ in
+                    return req.redirect(to: "/#parkinglot")
+                }
+            
+        }
     }
     
 }
