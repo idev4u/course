@@ -198,8 +198,6 @@ public func routes(_ router: Router) throws {
                 _ = teamMateDidCreate.create(on: req)
                 return req.redirect(to: "/manage/team")
             }
-            // FIXME: add error handling for files greater 1Mb
-        
         }
         // mate/#(mate.id)/delete
         group.post("mate", TeamMateDbModel.parameter, "delete"){ req -> Future<Response> in
@@ -232,6 +230,12 @@ public func routes(_ router: Router) throws {
         // track/#(mate.id)/delete
         group.post("track", Track.parameter, "delete"){ req -> Future<Response> in
             return try req.parameters.next(Track.self).flatMap { track in
+                var co = track.ContextOwner
+                var ri = track.RotateInPerson
+                co?.assignedTrackId = nil
+                ri?.assignedTrackId = nil
+                _ = co?.update(on: req)
+                _ = ri?.update(on: req)
                 return track.delete(on: req).map { _ in
                     return req.redirect(to: "/manage/tracks")
                 }
