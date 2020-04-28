@@ -39,4 +39,8 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     migrations.add(model: Track.self, database: .psql)
     migrations.add(model: ParkingLotTopic.self, database: .psql)
     services.register(migrations)
+    
+    // Extend the body size of Swift NIO from 1Mb to 7Mb
+    services.register(NIOServerConfig.default(maxBodySize: 7_000_000))
+                                                            
 }
