@@ -202,6 +202,17 @@ public func routes(_ router: Router) throws {
         // mate/#(mate.id)/delete
         group.post("mate", TeamMateDbModel.parameter, "delete"){ req -> Future<Response> in
             return try req.parameters.next(TeamMateDbModel.self).flatMap { mate in
+                
+                let trackRemoveMate = Track.query(on: req).filter(\.id == mate.assignedTrackId).first()
+                _ = trackRemoveMate.map { track in
+                    var ut = track
+                    if (ut?.ContextOwner?.id == mate.id) {
+                        ut?.ContextOwner = nil
+                    } else {
+                        ut?.RotateInPerson = nil
+                    }
+                    _ = ut?.update(on: req)
+                }
                 return mate.delete(on: req).map { _ in
                     return req.redirect(to: "/manage/team")
                 }
