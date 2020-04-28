@@ -34,7 +34,7 @@
 
       <div class="form-group col-md-4">
         <label for="exampleFormControlFile1">Example file input</label>
-        <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+        <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1" accept="image/png, image/jpeg"> 
       </div>
       <div class="row col-md-4">
         <div class="col">
