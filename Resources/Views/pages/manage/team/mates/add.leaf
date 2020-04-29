@@ -34,7 +34,8 @@
 
       <div class="form-group col-md-4">
         <label for="exampleFormControlFile1">Example file input</label>
-        <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1" accept="image/png, image/jpeg"> 
+        <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1" accept="image/png, image/jpeg" onchange="Filevalidation()">
+        <p id="size"></p>
       </div>
       <div class="row col-md-4">
         <div class="col">
@@ -49,6 +50,7 @@
     </form>
   </div>
   #embed("common/scripts/layout-scripts")
+  #embed("common/scripts/helper-upload-size")
 </body>
 
 </html>

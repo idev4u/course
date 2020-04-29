@@ -1,0 +1,26 @@
+<script>
+    Filevalidation = () => {
+        const fi = document.getElementById('exampleFormControlFile1');
+        // Check if any file is selected.
+        if (fi.files.length > 0) {
+            for (const i = 0; i <= fi.files.length - 1; i++) {
+
+                const fsize = fi.files.item(i).size;
+                const file = Math.round((fsize / 1024));
+                // The size of the file.
+                if (file >= 2048) {
+                    alert("File too Big, please select a file less than 2Mb or for a better performance compress it to less then 100k.");
+                    fi.value = '';
+                    document.getElementById('size').innerHTML = '';
+                } else if (file < 2) {
+                    alert("File too small, please select a file greater than 2k");
+                    fi.value = '';
+                    document.getElementById('size').innerHTML = '';
+                } else {
+                    document.getElementById('size').innerHTML = '<b>'
+                    + file + '</b> KB';
+                }
+            }
+        }
+    }
+</script>
