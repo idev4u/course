@@ -8,8 +8,8 @@
                 const fsize = fi.files.item(i).size;
                 const file = Math.round((fsize / 1024));
                 // The size of the file.
-                if (file >= 2048) {
-                    alert("File too Big, please select a file less than 2Mb or for a better performance compress it to less then 100k.");
+                if (file >= 7168) {
+                    alert("File too Big, please select a file less than 7Mb.");
                     fi.value = '';
                     document.getElementById('size').innerHTML = '';
                 } else if (file < 2) {
