@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Cgd",
+        "repositoryURL": "https://github.com/twostraws/Cgd.git",
+        "state": {
+          "branch": null,
+          "revision": "9cb9d56e8fe9c893c4e2ab5011dee9b6a13234c4",
+          "version": "0.3.0"
+        }
+      },
+      {
         "package": "Console",
         "repositoryURL": "https://github.com/vapor/console.git",
         "state": {
@@ -87,8 +96,8 @@
         "repositoryURL": "https://github.com/vapor/postgresql.git",
         "state": {
           "branch": null,
-          "revision": "69ccf32e9164b207f9a773edac5433fe68ae3e5b",
-          "version": "1.5.0"
+          "revision": "489537a4bd59afb9e162e9c7d423623a748b5ec0",
+          "version": "1.6.0"
         }
       },
       {
@@ -152,6 +161,15 @@
           "branch": null,
           "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
           "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SwiftGD",
+        "repositoryURL": "https://github.com/twostraws/SwiftGD.git",
+        "state": {
+          "branch": null,
+          "revision": "6b51d5d3aec983e7c204b4993189417bf12b1ca8",
+          "version": "2.4.0"
         }
       },
       {

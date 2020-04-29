@@ -194,7 +194,10 @@ public func routes(_ router: Router) throws {
                 print(teammate.image?.filename ?? "ups no image") // Raw image data
                 print(teammate.image?.data ?? "ups no image") // Raw image data
                 print(teammate.isOut ?? true)
-                let teamMateDidCreate = TeamMateDbModel.init(id: nil, name: teammate.name, surename: teammate.surename, image: teammate.image?.data.base64EncodedData(), isOut: false, assignedTrackId: nil)
+                let ir = ImageResizer()
+                let smalldata = ir.resizeImage(data: teammate.image!.data, mimeType: "jpg")
+//                let teamMateDidCreate = TeamMateDbModel.init(id: nil, name: teammate.name, surename: teammate.surename, image: teammate.image?.data.base64EncodedData(), isOut: false, assignedTrackId: nil)
+                let teamMateDidCreate = TeamMateDbModel.init(id: nil, name: teammate.name, surename: teammate.surename, image: smalldata.base64EncodedData(), isOut: false, assignedTrackId: nil)
                 _ = teamMateDidCreate.create(on: req)
                 return req.redirect(to: "/manage/team")
             }
