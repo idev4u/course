@@ -41,6 +41,6 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register(migrations)
     
     // Extend the body size of Swift NIO from 1Mb to 7Mb
-    services.register(NIOServerConfig.default(maxBodySize: 7_000_000))
+    services.register(NIOServerConfig.default(maxBodySize: 7_000_000, supportCompression: true))
                                                             
 }
