@@ -61,7 +61,7 @@
           <!-- <label for="inputTrackName ">Trackname</label> -->
           <div>
             <input type="text" name="topic" class="form-control" id="inputParkinglot" placeholder="Parkinglot item">
-            <button type="submit" name="action" class="btn btn-primary">add</button>
+            <button type="submit" name="action" class="btn btn-secondary">add</button>
           </div>
         </div>
       </form>
