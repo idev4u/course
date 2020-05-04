@@ -32,20 +32,22 @@ Before you deploy it by your own, you wann try it out. No problem, I have deploy
 $ git clone git@github.com:idev4u/course.git
 cd course
 ```
-```
+
+```sh
 $vapor run
 ...
 Running default command: .build/debug/Run serve
 Server starting on http://localhost:8080
-``
+```
 
 ### On Heroku
 
+```sh
+$ heroku login
 ```
-heroku login
-```
-```
-vapor heroku push
+
+```sh
+$ vapor heroku push
 ```
 
 #### deployment init
@@ -58,18 +60,18 @@ you have already succesfully setuped a heroku account
 first install the heroku cli tool from [here](https://devcenter.heroku.com/articles/heroku-cli)
 then login to heroku with:
 
-```
-heroku login
+```sh
+$ heroku login
 ```
 then init the project with:
-```
-vapor heroku init
+```sh
+$ vapor heroku init
 ```
 provide the custom buildpack https://github.com/vapor-community/heroku-buildpack.git
 
 Create the following procfile in the root folder
-```
-echo "web: Run serve --env production --hostname 0.0.0.0 --port $PORT" > Procfile
+```sh
+$ echo "web: Run serve --env production --hostname 0.0.0.0 --port $PORT" > Procfile
 ```
 #### config errors
 hint: if you don't have a procfile, the app will not start. Watch out for the follwing line in the log file `Procfile declares types -> (none)`
