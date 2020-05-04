@@ -2,15 +2,44 @@
 
 # Course
 
-hello this is course a pairing borad inspired by pairup. At time I wrote course pair up wasn't  open source.
-But course will be.
+## What is Course
+Hello! This is course a pairing board inspired by pair-up. At time I wrote course, [pairup](https://github.com/julz/pairup) wasn't open source, now it is.
+My motivation to build course was to have a paring board for a team and practicing swift on the server.
+After around 10 month I think it, I have a proper MVP so I can release it to the world.
+I'm happy about everyone, who think this is useful and I accept any kind of feedback in the form of PR or Issues.
+
+The name "course" btw. is used in the seafaring and defines the path of the current day. I think with the driver and navigator pattern this is good relation to the topic of pairing.
 
 ## pre
 
-course is a 12 factor app, so with it will be fit intop cloud foundry heroku and lots more. But there is one important dependency, a postgresql is needed.
+Course is a 12 factor app, so with this, it will fit into cloud foundry and or heroku and lots more. But there is one important dependency, a postgresql db is needed.
+
+AND you need vapor tools on the mac
+```sh
+$brew install vapor
+```
+
+### Try it out?
+
+Before you deploy it by your own, you wann try it out. No problem, I have deployed a demo version on heroku.
+[course in action](https://course-pair.herokuapp.com)
 
 ## deplyoment
-On Heroku
+
+### Fork or clone
+
+```sh
+$ git clone git@github.com:idev4u/course.git
+cd course
+```
+```
+$vapor run
+...
+Running default command: .build/debug/Run serve
+Server starting on http://localhost:8080
+``
+
+### On Heroku
 
 ```
 heroku login
@@ -19,11 +48,11 @@ heroku login
 vapor heroku push
 ```
 
-### deployment init
+#### deployment init
 
-#### pre 
+##### pre 
 
-you have already succesfully setuped a heruko account
+you have already succesfully setuped a heroku account
 
 #### init
 first install the heroku cli tool from [here](https://devcenter.heroku.com/articles/heroku-cli)
