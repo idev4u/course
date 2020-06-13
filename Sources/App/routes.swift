@@ -15,7 +15,7 @@ public func routes(_ router: Router) throws {
     // "It works" page
     let message = "Course"
 //    var datasource = TeamDataSource()
-    let tc = TrackController()
+    let trackController = TrackController()
 //    var tracks = tc.tracksA()
     
     router.get { req -> Future<View> in
@@ -29,7 +29,7 @@ public func routes(_ router: Router) throws {
         let teamIn = Team(team: allTeamMates)
         let teamOut = Team(team: allTeamMatesOut)
         // fetch Tracks
-        let tracks = tc.tracksFromDB(req: req)
+        let tracks = trackController.tracksFromDB(req: req)
         // fetch Parking Lot Topics
         let parkingLotTopics = ParkingLotTopic.query(on: req).sort(\.id, .ascending).all()
         // prepare View Rendere Model
@@ -142,6 +142,7 @@ public func routes(_ router: Router) throws {
     }
 
     // out view
+    // FIX ME: Move it to a controller
     router.get("team", "mate", TeamMateDbModel.parameter, "out") { req -> Future<Response> in
         // mark the mate that he is out
         // TDOO: Remove Trackid
@@ -233,9 +234,10 @@ public func routes(_ router: Router) throws {
                 let tracks = ["tracklist": track]
                 return try req.view().render("pages/manage/tracks/tracks.leaf", tracks)
             }
-            
+
         }
-        group.post("add"){req -> Future<Response> in
+        
+        group.post("add"){ req -> Future<Response> in
             return try req.content.decode(Track.self).map(to: Response.self) { track in
                 let didCreateTrack = track.create(on: req)
                 print(didCreateTrack)
