@@ -6,8 +6,9 @@ FROM swift:5.0 as builder
 ARG env
 
 RUN apt-get -qq update && apt-get install -y \
-  libssl-dev zlib1g-dev \
+  libssl-dev zlib1g-dev libgd-dev \
   && rm -r /var/lib/apt/lists/*
+
 WORKDIR /app
 COPY . .
 RUN mkdir -p /build/lib && cp -R /usr/lib/swift/linux/*.so* /build/lib
@@ -15,16 +16,27 @@ RUN swift build -c release && mv `swift build -c release --show-bin-path` /build
 
 # Production image
 FROM ubuntu:18.04
+
 ARG env
+
 # DEBIAN_FRONTEND=noninteractive for automatic UTC configuration in tzdata
-RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get install -y \ 
-  libatomic1 libicu60 libxml2 libcurl4 libz-dev libbsd0 tzdata \
+RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+  libatomic1 libicu60 libxml2 libcurl4 libz-dev libbsd0 tzdata libgd3 jq \
   && rm -r /var/lib/apt/lists/*
+
+RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get install -y\
+  postgresql postgresql-contrib iputils-ping
+
 WORKDIR /app
 COPY --from=builder /build/bin/Run .
 COPY --from=builder /build/lib/* /usr/lib/
 COPY --from=builder /app/Public ./Public
 COPY --from=builder /app/Resources ./Resources
-ENV ENVIRONMENT=$env
 
-ENTRYPOINT ./Run serve --env $ENVIRONMENT --hostname 0.0.0.0 --port 80
+# RUN echo $VCAP_SERVICES | jq ."aws_aurora_shared"[0]."credentials"."uri" > /root/tmp_variable
+# RUN export DATABASE_URL="$(echo $VCAP_SERVICES | jq ."aws_aurora_shared"[0]."credentials"."uri")"
+ENV ENVIRONMENT=production
+EXPOSE 8080:8080
+# RUN export DATABASE_URL=$(cat /root/tmp_variable)
+ENTRYPOINT DATABASE_URL="$(echo $VCAP_SERVICES | jq ."aws_aurora_shared"[0]."credentials"."uri" | tr -d '"')" \
+  ./Run serve --env $ENVIRONMENT --hostname 0.0.0.0 --port $PORT
