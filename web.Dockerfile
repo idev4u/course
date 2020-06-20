@@ -17,15 +17,14 @@ RUN swift build -c release && mv `swift build -c release --show-bin-path` /build
 # Production image
 FROM ubuntu:18.04
 
-ARG env
+ARG ENV=production
+ARG DB_URL
+ARG PORT=8080
 
 # DEBIAN_FRONTEND=noninteractive for automatic UTC configuration in tzdata
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   libatomic1 libicu60 libxml2 libcurl4 libz-dev libbsd0 tzdata libgd3 jq \
   && rm -r /var/lib/apt/lists/*
-
-RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get install -y\
-  postgresql postgresql-contrib iputils-ping
 
 WORKDIR /app
 COPY --from=builder /build/bin/Run .
@@ -33,10 +32,14 @@ COPY --from=builder /build/lib/* /usr/lib/
 COPY --from=builder /app/Public ./Public
 COPY --from=builder /app/Resources ./Resources
 
-# RUN echo $VCAP_SERVICES | jq ."aws_aurora_shared"[0]."credentials"."uri" > /root/tmp_variable
-# RUN export DATABASE_URL="$(echo $VCAP_SERVICES | jq ."aws_aurora_shared"[0]."credentials"."uri")"
-ENV ENVIRONMENT=production
+# expose with env variable
+ENV ENVIRONMENT $ENV
+ENV DATABASE_URL $DB_URL
+ENV PORT $PORT
+# verify if this is needed
 EXPOSE 8080:8080
-# RUN export DATABASE_URL=$(cat /root/tmp_variable)
-ENTRYPOINT DATABASE_URL="$(echo $VCAP_SERVICES | jq ."aws_aurora_shared"[0]."credentials"."uri" | tr -d '"')" \
-  ./Run serve --env $ENVIRONMENT --hostname 0.0.0.0 --port $PORT
+
+# Add overwirte Database string to customize the fetch env
+# ENTRYPOINT DATABASE_URL="$(echo $VCAP_SERVICES | jq ."aws_aurora_shared"[0]."credentials"."uri" | tr -d '"')" \
+#   ./Run serve --env $ENVIRONMENT --hostname 0.0.0.0 --port $PORT
+ENTRYPOINT ./Run serve --env $ENVIRONMENT --hostname 0.0.0.0 --port $PORT

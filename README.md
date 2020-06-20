@@ -94,6 +94,9 @@ how to show a image as base64 string, this is a hack to store the image in the d
 https://stackoverflow.com/questions/8499633/how-to-display-base64-images-in-html
 Alternative stor the image in a blobstore and render the cdn path to the image. But I would like to store the image in the db for now.
 
+## Deployments
+* [How to docker](docker_readme.md)
+
 ## logo 
 
 ### font type
