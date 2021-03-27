@@ -22,7 +22,7 @@ $brew install vapor
 ### Try it out?
 
 Before you deploy it by your own, you wann try it out. No problem, I have deployed a demo version on heroku.
-[course in action](https://course-pair.herokuapp.com)
+
 
 ## deplyoment
 
