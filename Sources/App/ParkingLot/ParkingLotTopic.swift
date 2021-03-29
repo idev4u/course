@@ -5,15 +5,18 @@
 //  Created by Norman Sutorius on 21.04.20.
 //
 
-import FluentPostgreSQL
+import Fluent
 import Vapor
 
-struct ParkingLotTopic: Model, Content, Migration, Parameter {
-    static let idKey: IDKey = \.id
+final class ParkingLotTopic: Model, Content {
+    static var schema:String = "ParkingLotTopic"
     
-    typealias ID = Int
-    
-    typealias Database = PostgreSQLDatabase
+//    static let idKey: IDKey = \.id
+//
+//    typealias ID = Int
+//
+//    typealias Database = PostgreSQLDatabase
+    @ID(key: .id)
     var id: Int?
     var topic: String?
     var state: Bool? = false

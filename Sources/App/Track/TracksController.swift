@@ -11,8 +11,11 @@ import Foundation
 
 class TrackController {
     
-    func tracksFromDB(req:Request) -> Future<[Track]>{
-        let allTracks = Track.query(on: req).sort(\.id, .descending).all()
-        return allTracks
+    func tracksFromDB(req:Request) -> [Track]{
+//        let allTracks = Track.query(on: req.db).sort(\.id, .descending).all()
+        // fixme: Db query
+//        return allTracks
+        return []
     }
 }
+

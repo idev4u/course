@@ -9,5 +9,5 @@ import Foundation
 import Vapor
 
 struct Team: Encodable {
-    var team: Future<[TeamMateDbModel]>
+    var team: [TeamMateDbModel]
 }

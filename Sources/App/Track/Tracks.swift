@@ -7,6 +7,7 @@
 
 import Vapor
 
+
 struct Tracks: Encodable {
-    var tracks : Future<[Track]>
+    var tracks : [Track]
 }

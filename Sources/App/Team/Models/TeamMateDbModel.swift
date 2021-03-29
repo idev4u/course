@@ -5,21 +5,21 @@
 //  Created by Norman Sutorius on 02.01.20.
 //
 
-import FluentPostgreSQL
+import Fluent
 import Vapor
-import PostgreSQL
 
-struct TeamMateDbModel: Model, Content, Migration, Parameter {
-    static let idKey: IDKey = \.id
+final class TeamMateDbModel: Model, Content, Encodable {
+    init() { }
     
-    typealias ID = Int
-    
-    typealias Database = PostgreSQLDatabase
-    
+    static var schema: String = "TeamMateDbModel"
+        
+    @ID(key: .id)
     var id: Int?
-    var name: String
-    var surename: String
+    var name: String = ""
+    var surename: String = ""
     var image: Data?
+    @Field(key: "isOut")
     var isOut: Bool?
+    @Field(key: "assignedTrackId")
     var assignedTrackId: Int?
 }

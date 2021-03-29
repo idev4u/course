@@ -5,17 +5,17 @@
 //  Created by Norman Sutorius on 20.07.19.
 //
 
-import FluentPostgreSQL
+import Fluent
 import Vapor
 
-struct Track: Model, Content, Migration, Parameter {
-    static let idKey: IDKey = \.id
+final class Track: Model, Content {
+    init() { }
     
-    typealias ID = Int
-    
-    typealias Database = PostgreSQLDatabase
+    static var schema: String = "Track"
+        
+    @ID(key: .id)
     var id: Int?
     var ContextOwner:TeamMateDbModel?
     var RotateInPerson:TeamMateDbModel?
-    var name: String
+    var name: String = ""
 }

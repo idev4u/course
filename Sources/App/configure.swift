@@ -1,45 +1,50 @@
-import Leaf
 import Vapor
-import FluentPostgreSQL
-import PostgreSQL
+import Fluent
+import Leaf
+import FluentPostgresDriver
 
 /// Called before your application initializes.
-public func configure(_ config: inout Config, _ env: inout Environment, _ services: inout Services) throws {
+public func configure(_ app: Application) throws {
     // Register providers first
-    try services.register(LeafProvider())
-
-    // Register routes to the router
-    let router = EngineRouter.default()
-    try routes(router)
-    services.register(router, as: Router.self)
-    
+//    try services.register(LeafProvider())
+//    // Use Leaf for rendering views
+//    config.prefer(LeafRenderer.self, for: ViewRenderer.self)
     // Use Leaf for rendering views
-    config.prefer(LeafRenderer.self, for: ViewRenderer.self)
+    app.views.use(.leaf)
 
     // Register middleware
-    var middlewares = MiddlewareConfig() // Create _empty_ middleware config
-    middlewares.use(FileMiddleware.self) // Serves files from `Public/` directory
-    middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
-    services.register(middlewares)
+    app.middleware.use(ErrorMiddleware.default(environment: app.environment))
+    app.middleware.use(FileMiddleware.init(publicDirectory: app.directory.publicDirectory))
+
+    
+    // Register routes to the router
+//    let router = EngineRouter.default()
+//    try routes(router)
+//    services.register(router, as: Router.self)
+    
+
     
     // Register Database
-    try services.register(FluentPostgreSQLProvider())
+    let dburl:String = ProcessInfo.processInfo.environment["DATABASE_URL"] ?? "postgres://postgres@localhost"
+    try app.databases.use(.postgres(url: dburl), as: .psql)
+//    try services.register(FluentPostgreSQLProvider())
+//
+//    let dburl:String = ProcessInfo.processInfo.environment["DATABASE_URL"] ?? ""
+//
+//    if !(dburl .isEmpty) {
+//        let postgresqlConfig:PostgreSQLDatabaseConfig = PostgreSQLDatabaseConfig(url: dburl)! //
+//        services.register(postgresqlConfig)
+//    }
     
-    let dburl:String = ProcessInfo.processInfo.environment["DATABASE_URL"] ?? ""
     
-    if !(dburl .isEmpty) {
-        let postgresqlConfig:PostgreSQLDatabaseConfig = PostgreSQLDatabaseConfig(url: dburl)! //
-        services.register(postgresqlConfig)
-    }
+    // Migration for Database has to be done by hand
     
-    
-    // Migration for Database
-    var migrations = MigrationConfig()
-    migrations.add(model: TeamMateDbModel.self, database: .psql)
-    migrations.add(model: Track.self, database: .psql)
-    migrations.add(model: ParkingLotTopic.self, database: .psql)
-    services.register(migrations)
+//    var migrations = MigrationConfig()
+//    migrations.add(model: TeamMateDbModel.self, database: .psql)
+//    migrations.add(model: Track.self, database: .psql)
+//    migrations.add(model: ParkingLotTopic.self, database: .psql)
+//    services.register(migrations)
     
     // Extend the body size of Swift NIO from 1Mb to 7Mb
-    services.register(NIOServerConfig.default(maxBodySize: 7_000_000, supportCompression: false))
+//    services.register(NIOServerConfig.default(maxBodySize: 7_000_000, supportCompression: false))
 }

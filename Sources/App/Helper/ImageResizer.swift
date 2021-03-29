@@ -16,7 +16,7 @@ import Vapor
  */
 
 class ImageResizer {
-    func resizeImage(data: Data, mediaType: MediaType ) -> Data {
+    func resizeImage(data: Data, mediaType: HTTPMediaType ) -> Data {
         var image:Image? = nil
         if mediaType.subType == "jpeg" {
           image = try! Image(data: data, as: .jpg)
