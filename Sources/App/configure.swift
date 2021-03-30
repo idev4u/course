@@ -18,6 +18,7 @@ public func configure(_ app: Application) throws {
 
     
     // Register routes to the router
+    try routes(app)
 //    let router = EngineRouter.default()
 //    try routes(router)
 //    services.register(router, as: Router.self)
