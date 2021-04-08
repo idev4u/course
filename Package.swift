@@ -9,25 +9,31 @@ let package = Package(
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
-        .package(url: "https://github.com/vapor/vapor.git", from: "4.3.0"),
-        
-        // 🍃 An expressive, performant, and extensible templating language built for Swift.
-        .package(url: "https://github.com/vapor/leaf.git", from: "4.1.0"),
-        // Fluent
-        .package(url: "https://github.com/vapor/fluent.git", from: "4.2.0"),
-        .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.1.0" ),
+        .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
+        .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
+        .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0"),
+        .package(url: "https://github.com/vapor/leaf.git", from: "4.0.0"),
         
         // Image Resizing
         .package(url: "https://github.com/twostraws/SwiftGD.git", "2.0.0"..."2.4.0" ),
     ],
     targets: [
-        .target(name: "App", dependencies: [
+        .target(
+            name: "App",
+            dependencies: [
             .product(name: "Fluent", package: "fluent"),
             .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
             .product(name: "Leaf", package: "leaf"),
             .product(name: "Vapor", package: "vapor"),
             .product(name: "SwiftGD", package: "SwiftGD"),
-        ]),
+            ],
+            swiftSettings: [
+                // Enable better optimizations when building in Release configuration. Despite the use of
+                // the `.unsafeFlags` construct required by SwiftPM, this flag is recommended for Release
+                // builds. See <https://github.com/swift-server/guides#building-for-production> for details.
+                .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release))
+            ]
+           ),
         .target(name: "Run", dependencies: [
             .target(name: "App"),
         ]),
@@ -36,4 +42,6 @@ let package = Package(
         ])
     ]
 )
+
+
 
