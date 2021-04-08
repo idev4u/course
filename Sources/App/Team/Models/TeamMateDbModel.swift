@@ -8,15 +8,18 @@
 import Fluent
 import Vapor
 
-final class TeamMateDbModel: Model, Content, Encodable {
+final class TeamMateDbModel: Model, Content {
     init() { }
     
     static var schema: String = "TeamMateDbModel"
         
-    @ID(key: .id)
+    @ID(custom: .id)
     var id: Int?
-    var name: String = ""
-    var surename: String = ""
+    @Field(key: "name")
+    var name: String
+    @Field(key: "surename")
+    var surename: String
+    @Field(key: "image")
     var image: Data?
     @Field(key: "isOut")
     var isOut: Bool?

@@ -9,13 +9,14 @@ public func configure(_ app: Application) throws {
 //    try services.register(LeafProvider())
 //    // Use Leaf for rendering views
 //    config.prefer(LeafRenderer.self, for: ViewRenderer.self)
-    // Use Leaf for rendering views
-    app.views.use(.leaf)
+
 
     // Register middleware
     app.middleware.use(ErrorMiddleware.default(environment: app.environment))
     app.middleware.use(FileMiddleware.init(publicDirectory: app.directory.publicDirectory))
-
+    // Use Leaf for rendering views
+    app.views.use(.leaf)
+    
     
     // Register routes to the router
     try routes(app)
@@ -26,7 +27,7 @@ public func configure(_ app: Application) throws {
 
     
     // Register Database
-    let dburl:String = ProcessInfo.processInfo.environment["DATABASE_URL"] ?? "postgres://postgres@localhost"
+    let dburl:String = ProcessInfo.processInfo.environment["DATABASE_URL"] ?? "postgres://postgres@localhost/postgres"
     try app.databases.use(.postgres(url: dburl), as: .psql)
 //    try services.register(FluentPostgreSQLProvider())
 //

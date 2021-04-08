@@ -1,6 +1,7 @@
 import Vapor
 import Fluent
 
+
 struct Board: Encodable {
     let message: String
     let team: Team
@@ -20,30 +21,34 @@ public func routes(_ app: Application) throws {
     app.get("info"){ req -> String in
         return "huhu"
     }
-//    app.get() { req -> EventLoopFuture<View> in
-//
-//        //Fetch mates from DB
-//        let allTeamMates = TeamMateDbModel.query(on: req.db).all()
-//        let allTeamMatesOut = TeamMateDbModel.query(on: req.db).filter(\.$isOut == true).all()
-//        let unassignedMates = TeamMateDbModel.query(on: req.db).filter(\.$isOut == false).filter(\.$assignedTrackId == nil).all() //
-//        print(allTeamMates)
-//        // transfer to View model
-////        let uM:Array = unassignedMates.map { tdbmodel in
-////            return []
-////        }
-////        let teamUnassigned = Team(team: uM)
-////        let teamIn = Team(team: allTeamMates)
-////        let teamOut = Team(team: allTeamMatesOut)
-////        // fetch Tracks
-////        let tracks = tc.tracksFromDB(req: req)
-////        // fetch Parking Lot Topics
-////        let parkingLotTopics = ParkingLotTopic.query(on: req.db).sort(\.$id, .ascending).all()
-////        // prepare View Rendere Model
-//////        let board = Board(message: message,team: teamIn, unassigned: teamUnassigned , teamout: teamOut, tracks: tracks, parkingLotTopcis: parkingLotTopics)
+    app.get() { req -> EventLoopFuture<View> in
+        //Fetch mates from DB
+        
+        let allTeamMates = TeamMateDbModel.query(on: req.db).all()
+        let allTeamMatesOut = TeamMateDbModel.query(on: req.db).filter(\.$isOut == true).all()
+        let unassignedMates = TeamMateDbModel.query(on: req.db).filter(\.$isOut == false).filter(\.$assignedTrackId == nil).all() //
+       // transfer to View model
+//        let uM:Array = unassignedMates.map { tdbmodel in
+//            return []
+//        }
+//        let teamUnassigned = Team(team: uM)
+//        let teamIn = Team(team: allTeamMates)
+//        let teamOut = Team(team: allTeamMatesOut)
+//        // fetch Tracks
+//        let tracks = tc.tracksFromDB(req: req)
+//        // fetch Parking Lot Topics
+//        let parkingLotTopics = ParkingLotTopic.query(on: req.db).sort(\.$id, .ascending).all()
+//        // prepare View Rendere Model
 ////        let board = Board(message: message,team: teamIn, unassigned: teamUnassigned , teamout: teamOut, tracks: tracks, parkingLotTopcis: parkingLotTopics)
+//        let board = Board(message: message,team: teamIn, unassigned: teamUnassigned , teamout: teamOut, tracks: tracks, parkingLotTopcis: parkingLotTopics)
+//        let b = Board(message: "String", team: Team(team: allTeamMates), unassigned: Team(team: unassignedMates), teamout: Team(team: allTeamMatesOut), tracks: [], parkingLotTopcis: [])
 ////
-//        return try req.view.render("main", "board" )
-//    }
+//        return req.view.render("main", b)
+        return allTeamMates.and(unassignedMates).flatMap { aTM, uAM in
+            let b = Board(message: "String", team: Team(team: aTM), unassigned: Team(team: uAM), teamout: Team(team: []), tracks: [], parkingLotTopcis: [])
+            return req.view.render("main", b)
+        }
+    }
     // tracks
     // has to changed to put
     // "/tracks/<trackname>/update/owner/<ownername>
